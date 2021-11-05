@@ -1,1 +1,1 @@
-# Daily-Jobs-App
+# Freelance App
