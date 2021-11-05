@@ -1,4 +1,4 @@
-package com.example.dailyjobsapp.ui.theme
+package com.example.freelance_app.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

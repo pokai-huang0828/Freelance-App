@@ -7,7 +7,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.dailyjobsapp"
+        applicationId "com.example.freelance_app"
         minSdk 26
         targetSdk 31
         versionCode 1

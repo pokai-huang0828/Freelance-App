@@ -1,4 +1,4 @@
-package com.example.dailyjobsapp
+package com.example.freelance_app
 
 import org.junit.Test
 

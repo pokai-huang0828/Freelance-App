@@ -1,4 +1,4 @@
-package com.example.dailyjobsapp.ui.theme
+package com.example.freelance_app.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
