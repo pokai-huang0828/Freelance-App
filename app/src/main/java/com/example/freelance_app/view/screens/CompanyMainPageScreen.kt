@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import com.example.freelance_app.R
 import com.example.freelance_app.utils.CustomColors
 import androidx.compose.material.icons.filled.FiberManualRecord
+import com.example.freelance_app.ui.theme.fontSizeLarge
 import com.example.freelance_app.ui.theme.marginSmall
 import com.example.freelance_app.view.reusables.Avatar
 import com.example.freelance_app.view.reusablesv2.Btn
@@ -67,13 +68,15 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                         imageUrl = "http://images.squarespace-cdn.com/content/v1/54f8c792e4b03ea829c79558/1544727583704-XD2KF76CBRCUXRQVD9K1/breka+logo+1x1+transparent.png",
                     )
                 }
-                HeaderTypography(
+                Text(
                     text = "About Company:",
-                    fontWeight = FontWeight.Bold,
-                    alignment = Arrangement.Center,
+                    color = Color.Black,
+                    fontSize = fontSizeLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Start,
                     modifier = Modifier
-                        .padding(start = 10.dp)
-                        .offset(y = (-15).dp)
+                        .fillMaxWidth()
+                        .padding(vertical = 20.dp, horizontal = 20.dp)
                 )
                 CustomField(
                     text = "Lorem Ipsum is simply dummy text" +
