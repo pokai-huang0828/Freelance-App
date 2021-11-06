@@ -1,5 +1,6 @@
 package com.example.freelance_app.view.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,6 +13,7 @@ import com.example.freelance_app.view.screens.CompanyApplicationsScreen
 import com.example.freelance_app.view.screens.UserPostsScreen
 import com.example.freelance_app.view.screens.UserHistoryScreen
 
+@ExperimentalAnimationApi
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
