@@ -2,11 +2,13 @@ package com.example.freelance_app.view.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.freelance_app.view.screens.*
 
+@ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @Composable
 fun Navigation() {
@@ -17,7 +19,7 @@ fun Navigation() {
         startDestination = Screen.WelcomeScreen.route
     ) {
         composable(route = Screen.WelcomeScreen.route) {
-            WelcomeScreen(navController = navController)
+            WelcomeScreen(navController = navController, )
         }
         composable(route = Screen.SignInScreen.route) {
             SignInScreen(navController = navController)
