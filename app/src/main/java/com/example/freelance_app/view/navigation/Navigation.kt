@@ -44,7 +44,8 @@ fun Navigation() {
             UserPostsScreen()
         }
         composable(route = Screen.UserHistoryScreen.route) {
-            UserHistoryScreen(navController = navController)
+//            UserHistoryScreen(navController = navController)
+            UserHistoryScreen()
         }
         composable(route = Screen.UserDetailsScreen.route) {
 //            UserDetailsScreen(navController = navController)

@@ -207,13 +207,12 @@ fun UserDetailsFeedbacksSection(applicant: Applicant) {
                 .padding(vertical = marginSmall)
         ) {
             Text(
-                text = "Ratings",
+                text = "My Ratings",
                 color = Color.Black,
                 fontSize = fontSizeLarge,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
             )
-
         }
 
         Column() {

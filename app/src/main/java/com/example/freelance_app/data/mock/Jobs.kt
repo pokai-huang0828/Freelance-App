@@ -4,7 +4,7 @@ import com.example.freelance_app.data.dto.Company
 import com.example.freelance_app.data.dto.Job
 import com.example.freelance_app.data.dto.Status
 
-val jobs: List<Job> = listOf(
+val mockJobs: List<Job> = listOf(
     Job(
         id = 1,
         company = Company(
@@ -30,7 +30,7 @@ val jobs: List<Job> = listOf(
         position = "Coder",
         description = "We urgently need help on August 13th , 2021, 1pm - 5pm.",
         payInHour = 15.5f,
-        status = Status.ONGOING,
+        status = Status.EXPIRED,
     ),
     Job(
         id = 1,
@@ -43,6 +43,6 @@ val jobs: List<Job> = listOf(
         position = "Baker",
         description = "We urgently need help on August 13th , 2021, 1pm - 5pm.",
         payInHour = 15.5f,
-        status = Status.ONGOING,
+        status = Status.HIRED,
     ),
 )
