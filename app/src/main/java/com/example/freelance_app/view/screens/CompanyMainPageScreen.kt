@@ -101,13 +101,15 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                         btnClicked = true
                     }
                 }
-                ListOfPosts(posts)
+                ListOfPosts(posts){
+                    toPostScreen()
+                }
             }
         },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    AppPreferences.data = "Edit"
+                    AppPreferences.data = "Save"
                     toPostScreen()
                           },
                 backgroundColor = CustomColors.primary,
@@ -152,7 +154,7 @@ fun BtnRow(
 }
 
 @Composable
-fun ListOfPosts(posts: List<FakePost>) {
+fun ListOfPosts(posts: List<FakePost>, toPostScreen:()->Unit) {
     repeat(10) {
         for (post in posts) {
             Row(
@@ -161,7 +163,10 @@ fun ListOfPosts(posts: List<FakePost>) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                    .clickable { }
+                    .clickable {
+                        AppPreferences.data = "Delete"
+                        toPostScreen()
+                    }
             ) {
                 Icon(
                     imageVector = Icons.Filled.FiberManualRecord,
