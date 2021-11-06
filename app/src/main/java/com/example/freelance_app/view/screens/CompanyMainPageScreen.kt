@@ -27,7 +27,8 @@ import androidx.compose.ui.unit.sp
 import com.example.freelance_app.R
 import com.example.freelance_app.utils.CustomColors
 import androidx.compose.material.icons.filled.FiberManualRecord
-import com.example.freelance_app.view.reusablesv2.Avatar
+import com.example.freelance_app.ui.theme.marginSmall
+import com.example.freelance_app.view.reusables.Avatar
 import com.example.freelance_app.view.reusablesv2.Btn
 import com.example.freelance_app.view.reusablesv2.CustomField
 import com.example.freelance_app.view.reusablesv2.HeaderTypography
@@ -48,17 +49,24 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
         FakePost(date = "Nov 7, 2021", position = "Cleaner"),
     )
     Scaffold(
+        topBar = { UserDetailsForCompanyScreenTopBar() },
         content = {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                TopBar()
-                Avatar(
-                    avatarImg = R.drawable.logo_company,
-                    imageSize = 100.dp
-                )
+                Row(
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp,start = 20.dp)
+                ) {
+                    Avatar(
+                        imageUrl = "http://images.squarespace-cdn.com/content/v1/54f8c792e4b03ea829c79558/1544727583704-XD2KF76CBRCUXRQVD9K1/breka+logo+1x1+transparent.png",
+                    )
+                }
                 HeaderTypography(
                     text = "About Company:",
                     fontWeight = FontWeight.Bold,
