@@ -15,6 +15,7 @@ import com.example.freelance_app.ui.theme.FreelanceAppTheme
 import com.example.freelance_app.view.navigation.Navigation
 import com.example.freelance_app.view.screens.UserDetailsForCompanyScreen
 import com.example.freelance_app.view.screens.UserDetailsScreen
+import com.example.freelance_app.view.screens.UserHistoryScreen
 import com.example.freelance_app.view.screens.UserPostsScreen
 
 @ExperimentalComposeUiApi
@@ -31,7 +32,8 @@ class MainActivity : ComponentActivity() {
 
 //                    UserDetailsScreen()
 //                    UserDetailsForCompanyScreen()
-                    UserPostsScreen()
+//                    UserPostsScreen()
+                    UserHistoryScreen()
                 }
             }
         }

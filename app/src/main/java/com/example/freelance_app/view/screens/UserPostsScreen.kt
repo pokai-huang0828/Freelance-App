@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.freelance_app.R
 import com.example.freelance_app.data.dto.Job
-import com.example.freelance_app.data.mock.jobs
+import com.example.freelance_app.data.mock.mockJobs
 import com.example.freelance_app.ui.theme.*
 import com.example.freelance_app.view.reusables.CustomButton
 import com.example.freelance_app.view.reusables.SearchBar
@@ -51,8 +51,8 @@ fun UserPostsScreen() {
 @Composable
 fun UserPostsContent() {
     var searchTerm by remember { mutableStateOf("") }
-    val originPosts by remember { mutableStateOf(jobs) }
-    var displayPosts by remember { mutableStateOf(jobs) }
+    val originPosts by remember { mutableStateOf(mockJobs) }
+    var displayPosts by remember { mutableStateOf(mockJobs) }
 
     Column(
         modifier = Modifier
