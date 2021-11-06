@@ -16,7 +16,7 @@ val mockJobs: List<Job> = listOf(
         position = "Dish Washer",
         description = "We urgently need help on August 13th , 2021, 1pm - 5pm.",
         payInHour = 15.5f,
-        status = Status.ONGOING,
+        status = Status.PENDING,
         category = "IT"
     ),
     Job(

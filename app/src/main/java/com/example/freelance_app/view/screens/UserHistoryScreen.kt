@@ -13,13 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
-import com.example.freelance_app.R
 import com.example.freelance_app.data.dto.Job
 import com.example.freelance_app.data.dto.Status
 import com.example.freelance_app.data.mock.mockJobs
@@ -128,7 +125,7 @@ fun AppliedJobCard(job: Job) {
 
 fun GetJobPostStatusColor(status: Status): Color {
     return when (status) {
-        Status.ONGOING -> Color.Blue;
+        Status.PENDING -> Color.Blue;
         Status.EXPIRED -> Color.Red;
         Status.HIRED -> Color.Green;
     }
