@@ -1,7 +1,7 @@
 package com.example.freelance_app.data.dto
 
 data class Applicant(
-    val id: String,
+    val id: Int,
     val profileImg: String, // URL
     val name: String = "",
     val email: String = "",

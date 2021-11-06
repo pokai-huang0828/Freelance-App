@@ -13,6 +13,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.freelance_app.ui.theme.FreelanceAppTheme
 import com.example.freelance_app.view.navigation.Navigation
+import com.example.freelance_app.view.screens.UserDetailsForCompanyScreen
 import com.example.freelance_app.view.screens.UserDetailsScreen
 import com.example.freelance_app.view.screens.UserPostsScreen
 
@@ -28,8 +29,9 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
 //                     Navigation()
 
-                    UserDetailsScreen()
-//                    UserPostsScreen()
+//                    UserDetailsScreen()
+//                    UserDetailsForCompanyScreen()
+                    UserPostsScreen()
                 }
             }
         }
