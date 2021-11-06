@@ -21,7 +21,7 @@ import com.example.freelance_app.view.reusablesv2.HeaderTypography
 
 @ExperimentalAnimationApi
 @Composable
-fun CompanyPostScreen(navController: NavController) {
+fun CompanyPostScreen(navigateToCompanyMainPage:()->Unit) {
     Scaffold(
         content = {
             Column(
@@ -75,7 +75,9 @@ fun CompanyPostScreen(navController: NavController) {
                     textColor = CustomColors.primary,
                 ) {}
 
-                ButtonGroup(btn1 = AppPreferences.data, btn2 = "Applicants")
+                ButtonGroup(btn1 = AppPreferences.data, btn2 = "Applicants"){
+                    navigateToCompanyMainPage()
+                }
                 Spacer(modifier = Modifier.padding(bottom = 200.dp))
             }
         }
@@ -114,7 +116,7 @@ fun PostNameAndDate(text: String) {
 }
 
 @Composable
-fun ButtonGroup(btn1: String, btn2: String) {
+fun ButtonGroup(btn1: String, btn2: String, cliked: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -122,7 +124,7 @@ fun ButtonGroup(btn1: String, btn2: String) {
             .fillMaxWidth()
             .padding(vertical = 15.dp, horizontal = 20.dp)
     ) {
-        Btn(text = btn1) {}
-        Btn(text = btn2, padding = 15) {}
+        Btn(text = btn1) { cliked() }
+        Btn(text = btn2, padding = 15) { cliked() }
     }
 }

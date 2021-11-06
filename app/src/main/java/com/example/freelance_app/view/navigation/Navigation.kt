@@ -34,7 +34,9 @@ fun Navigation() {
             }
         }
         composable(route = Screen.CompanyPostScreen.route) {
-            CompanyPostScreen(navController = navController)
+            CompanyPostScreen(){
+                navController.navigate(route = Screen.CompanyMainPageScreen.route)
+            }
         }
         composable(route = Screen.CompanyApplicationsScreen.route) {
             CompanyApplicationsScreen(navController = navController)

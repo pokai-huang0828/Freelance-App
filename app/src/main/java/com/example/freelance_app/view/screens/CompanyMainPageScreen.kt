@@ -112,7 +112,7 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                     AppPreferences.data = "Save"
                     toPostScreen()
                           },
-                backgroundColor = CustomColors.primary,
+                backgroundColor = CustomColors.default,
                 contentColor = Color.White,
                 modifier = Modifier
                     .width(70.dp)
