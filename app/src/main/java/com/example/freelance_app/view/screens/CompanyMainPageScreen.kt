@@ -79,13 +79,7 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                         .padding(vertical = 20.dp, horizontal = 20.dp)
                 )
                 CustomField(
-                    text = "Lorem Ipsum is simply dummy text" +
-                            " of the printing and typesetting industry. " +
-                            "Lorem Ipsum has been the industry's standard " +
-                            "dummy text ever since the 1500s, when an unknown " +
-                            "printer took a galley of type and scrambled it to " +
-                            "make a type specimen book. It has survived not only " +
-                            "five centuries, but ",
+                    text = "n 2010, FRESH Bakery opened its first kiosk location in Towson, Maryland. From its inception, FRESH Bakery is known as bakery unique for our square cupcakes and cakes. We take pride in using natural ingredients in our cupcakes, cakes and desserts. ",
                 )
                 BtnRow(text = "Save")
                 ListOfPosts(posts)
