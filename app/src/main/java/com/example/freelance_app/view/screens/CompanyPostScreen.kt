@@ -49,7 +49,7 @@ fun CompanyPostScreen(navController: NavController) {
                     label = "-",
                     switch = false,
                     bgColor = Color.White,
-                )
+                ){}
                 HeaderTypography(
                     text = "Needed Skills:",
                     fontWeight = FontWeight.Bold,
@@ -69,7 +69,7 @@ fun CompanyPostScreen(navController: NavController) {
 //                    modifier = Modifier.padding(top = (-15).dp),
                     label = "-",
                     switch = false,
-                )
+                ){}
                 ButtonGroup(btn1 = "Save", btn2 = "Applicants")
                 Spacer(modifier = Modifier.padding(bottom = 200.dp))
             }
@@ -103,7 +103,7 @@ fun PostNameAndDate(text: String) {
             placeholder = "Dates",
             switch = false,
             bgColor = Color.White
-        )
+        ){}
     }
 }
 

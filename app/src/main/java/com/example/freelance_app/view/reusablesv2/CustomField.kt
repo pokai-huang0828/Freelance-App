@@ -21,7 +21,8 @@ fun CustomField(
     placeholder: String = "Company Description",
     switch: Boolean = true,
     bgColor: Color = CustomColors.primaryLight,
-    textColor: Color = CustomColors.primaryLight
+    textColor: Color = CustomColors.primaryLight,
+    transfer: (String) -> Unit
 ) {
     var description by remember { mutableStateOf(text) }
     Row(
@@ -33,7 +34,10 @@ fun CustomField(
     ) {
         OutlinedTextField(
             value = description,
-            onValueChange = { description = it },
+            onValueChange = {
+                description = it
+                transfer(it)
+            },
             label = { Text(label) },
             colors = TextFieldDefaults
                 .outlinedTextFieldColors(

@@ -33,6 +33,16 @@ data class FakePost(
 @Composable
 fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
     var btnClicked by remember { mutableStateOf(false) }
+    var companyInfo by remember {
+        mutableStateOf(
+            "In 2010, FRESH Bakery opened its first kiosk " +
+                    "location in Towson, Maryland. From its " +
+                    "inception, FRESH Bakery is known as bakery " +
+                    "unique for our square cupcakes and cakes. " +
+                    "We take pride in using natural ingredients " +
+                    "in our cupcakes, cakes and desserts. "
+        )
+    }
     val posts: List<FakePost> = listOf(
         FakePost(date = "Nov 5, 2021", position = "Mover"),
         FakePost(date = "Nov 5-6, 2021", position = "Dishwasher"),
@@ -69,23 +79,21 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                 )
                 if (btnClicked) {
                     CustomField(
-                        text = "n 2010, FRESH Bakery opened its first kiosk location in Towson, Maryland. From its inception, FRESH Bakery is known as bakery unique for our square cupcakes and cakes. We take pride in using natural ingredients in our cupcakes, cakes and desserts. ",
-                    )
+                        text = companyInfo,
+                    ) {
+                        companyInfo = it
+                    }
                     BtnRow(text = "Save") {
+
                         btnClicked = false
                     }
                 } else {
                     CustomField(
-                        text = "n 2010, FRESH Bakery opened its first kiosk " +
-                                "location in Towson, Maryland. From its " +
-                                "inception, FRESH Bakery is known as bakery " +
-                                "unique for our square cupcakes and cakes. " +
-                                "We take pride in using natural ingredients " +
-                                "in our cupcakes, cakes and desserts. ",
+                        text = companyInfo,
                         switch = false,
                         bgColor = Color.White,
                         textColor = Color.Black
-                    )
+                    ) { }
                     BtnRow(text = "Edit") {
                         btnClicked = true
                     }
