@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Freelance-App</string>
+    <string name="welcome_screen">WelcomeScreen</string>
+    <string name="sign_in_screen">SignInScreen</string>
+    <string name="company_main_page_screen">CompanyMainPageScreen</string>
+    <string name="company_post_screen">CompanyPostScreen</string>
+    <string name="company_applications_screen">CompanyApplicationsScreen</string>
+    <string name="user_applicant_detail_screen">UserApplicantDetailScreen</string>
+    <string name="user_posts_screen">UserPostsScreen</string>
+    <string name="user_history_screen">UserHistoryScreen</string>
 </resources>
