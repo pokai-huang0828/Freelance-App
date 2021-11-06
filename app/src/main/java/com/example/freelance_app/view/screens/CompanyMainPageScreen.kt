@@ -31,7 +31,7 @@ data class FakePost(
 
 @ExperimentalAnimationApi
 @Composable
-fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
+fun CompanyMainPageScreen(toPostScreen: (String) -> Unit) {
     var btnClicked by remember { mutableStateOf(false) }
     var companyInfo by remember {
         mutableStateOf(
@@ -80,6 +80,9 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                 if (btnClicked) {
                     CustomField(
                         text = companyInfo,
+                        bgColor = Color.White,
+                        textColor = Color.Black,
+
                     ) {
                         companyInfo = it
                     }
@@ -91,8 +94,8 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                     CustomField(
                         text = companyInfo,
                         switch = false,
-                        bgColor = Color.White,
-                        textColor = Color.Black
+                        bgColor = CustomColors.primaryLight,
+                        textColor = CustomColors.primary,
                     ) { }
                     BtnRow(text = "Edit") {
                         btnClicked = true
@@ -103,7 +106,10 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { toPostScreen() },
+                onClick = {
+                    AppPreferences.data = "Edit"
+                    toPostScreen("Add")
+                          },
                 backgroundColor = CustomColors.primary,
                 contentColor = Color.White,
                 modifier = Modifier

@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import com.example.freelance_app.utils.CustomColors
 import com.example.freelance_app.view.reusables.TopBar
 import com.example.freelance_app.view.reusablesv2.Btn
 import com.example.freelance_app.view.reusablesv2.CustomField
@@ -48,8 +49,9 @@ fun CompanyPostScreen(navController: NavController) {
                             "for cooking and/or serving, as directed. ",
                     label = "-",
                     switch = false,
-                    bgColor = Color.White,
-                ){}
+                    bgColor = CustomColors.primaryLight,
+                    textColor = CustomColors.primary,
+                ) {}
                 HeaderTypography(
                     text = "Needed Skills:",
                     fontWeight = FontWeight.Bold,
@@ -69,8 +71,15 @@ fun CompanyPostScreen(navController: NavController) {
 //                    modifier = Modifier.padding(top = (-15).dp),
                     label = "-",
                     switch = false,
-                ){}
-                ButtonGroup(btn1 = "Save", btn2 = "Applicants")
+                    bgColor = CustomColors.primaryLight,
+                    textColor = CustomColors.primary,
+                ) {}
+                if (AppPreferences.data == "Save") {
+
+                    ButtonGroup(btn1 = "Save", btn2 = "Applicants")
+                } else {
+                    ButtonGroup(btn1 = "Edit", btn2 = "Applicants")
+                }
                 Spacer(modifier = Modifier.padding(bottom = 200.dp))
             }
         }
@@ -95,15 +104,16 @@ fun PostNameAndDate(text: String) {
                 .offset(y = (-15).dp)
         )
         CustomField(
-            text = "From Nov 5" +
-                    "Till Nov 6" +
+            text = "From Nov 5\n" +
+                    "Till Nov 6\n" +
                     "2021",
             modifier = Modifier.weight(1f),
             label = "Dates",
             placeholder = "Dates",
             switch = false,
-            bgColor = Color.White
-        ){}
+            bgColor = CustomColors.primaryLight,
+            textColor = CustomColors.primary,
+        ) {}
     }
 }
 
@@ -112,10 +122,11 @@ fun ButtonGroup(btn1: String, btn2: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(vertical = 15.dp, horizontal = 20.dp)
     ) {
-        Btn(text = btn1){}
-        Btn(text = btn2, padding = 15){}
+        Btn(text = btn1) {}
+        Btn(text = btn2, padding = 15) {}
     }
 }
