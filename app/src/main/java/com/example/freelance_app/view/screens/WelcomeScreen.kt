@@ -27,7 +27,7 @@ fun WelcomeScreen(navController: NavController) {
     Column(modifier = Modifier
         .fillMaxSize()
         .background(MaterialTheme.colors.primaryVariant)
-        .padding(top = 5.dp),
+        .padding(bottom = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
         Row{
             Image(painter = painterResource(R.drawable.logo_onlytext),
@@ -43,14 +43,15 @@ fun WelcomeScreen(navController: NavController) {
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(200.dp))
+        Spacer(modifier = Modifier.height(100.dp))
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.weight(2f),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text (text="Are you an",
-                    fontSize = fontSizeLarge,
+                    fontSize = fontSizeMed,
                     fontWeight = FontWeight.ExtraBold,
-                    color = White
+                    color = White,
+                    textAlign = TextAlign.Center
                 )
             }
             Spacer(modifier = Modifier.height(30.dp).weight(1f))
@@ -66,7 +67,7 @@ fun WelcomeScreen(navController: NavController) {
             Text(text = "Employer")
         }
         Text (text="Or",
-            fontSize = fontSizeMed,
+            fontSize = fontSizeSmall,
             color = White,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(10.dp)
