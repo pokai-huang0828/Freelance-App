@@ -4,13 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.freelance_app.view.screens.CompanyMainPageScreen
-import com.example.freelance_app.view.screens.SignInScreen
-import com.example.freelance_app.view.screens.WelcomeScreen
-import com.example.freelance_app.view.screens.CompanyPostScreen
-import com.example.freelance_app.view.screens.CompanyApplicationsScreen
-import com.example.freelance_app.view.screens.UserPostsScreen
-import com.example.freelance_app.view.screens.UserHistoryScreen
+import com.example.freelance_app.view.screens.*
 
 @Composable
 fun Navigation() {
@@ -40,6 +34,9 @@ fun Navigation() {
         }
         composable(route = Screen.UserHistoryScreen.route) {
             UserHistoryScreen(navController = navController)
+        }
+        composable(route = Screen.UserDetailsScreen.route) {
+            UserDetailsScreen(navController = navController)
         }
     }
 }
