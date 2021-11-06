@@ -14,7 +14,9 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.WelcomeScreen.route
+//        startDestination = Screen.WelcomeScreen.route
+        startDestination = Screen.CompanyMainPageScreen.route
+
     ) {
         composable(route = Screen.WelcomeScreen.route) {
             WelcomeScreen(navController = navController)
@@ -23,7 +25,9 @@ fun Navigation() {
             SignInScreen(navController = navController)
         }
         composable(route = Screen.CompanyMainPageScreen.route) {
-            CompanyMainPageScreen(navController = navController)
+            CompanyMainPageScreen(){
+                navController.navigate(route = Screen.CompanyPostScreen.route)
+            }
         }
         composable(route = Screen.CompanyPostScreen.route) {
             CompanyPostScreen(navController = navController)
