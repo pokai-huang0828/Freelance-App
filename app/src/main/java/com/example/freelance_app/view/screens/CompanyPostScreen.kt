@@ -74,12 +74,8 @@ fun CompanyPostScreen(navController: NavController) {
                     bgColor = CustomColors.primaryLight,
                     textColor = CustomColors.primary,
                 ) {}
-                if (AppPreferences.data == "Save") {
 
-                    ButtonGroup(btn1 = "Save", btn2 = "Applicants")
-                } else {
-                    ButtonGroup(btn1 = "Edit", btn2 = "Applicants")
-                }
+                ButtonGroup(btn1 = AppPreferences.data, btn2 = "Applicants")
                 Spacer(modifier = Modifier.padding(bottom = 200.dp))
             }
         }
