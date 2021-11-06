@@ -23,22 +23,25 @@ import com.example.freelance_app.data.dto.Applicant
 import com.example.freelance_app.data.dto.Rating
 import com.example.freelance_app.data.mock.applicant
 import com.example.freelance_app.ui.theme.*
-import com.example.freelance_app.view.reusables.*
+import com.example.freelance_app.view.reusables.Avatar
+import com.example.freelance_app.view.reusables.EditableRatingBox
+import com.example.freelance_app.view.reusables.InputField
+import com.example.freelance_app.view.reusables.RatingBox
 
 @ExperimentalAnimationApi
 @Composable
-//fun UserDetailsScreen(navController: NavController) {
-fun UserDetailsScreen() {
+//fun UserDetailsForCompanyScreen(navController: NavController) {
+fun UserDetailsForCompanyScreen() {
     Scaffold(
-        topBar = { UserDetailsScreenTopBar() },
+        topBar = { UserDetailsForCompanyScreenTopBar() },
         content = {
-            UserDetailsEditContent()
+            UserDetailsForCompanyEditContent()
         }
     )
 }
 
 @Composable
-fun UserDetailsEditContent() {
+fun UserDetailsForCompanyEditContent() {
     val scrollState = rememberScrollState()
 
     Column(
@@ -46,12 +49,14 @@ fun UserDetailsEditContent() {
             .padding(horizontal = marginMed)
             .verticalScroll(scrollState)
     ) {
-        UserDetailsProfileSection()
+        UserDetailsForCompanyProfileSection()
     }
 }
 
 @Composable
-fun UserDetailsProfileSection() {
+fun UserDetailsForCompanyProfileSection() {
+    // in real app, we will get the applicant from database here
+
     var displayCommendPopup by remember { mutableStateOf(false) }
     var rating by remember { mutableStateOf(1) }
     var comment by remember { mutableStateOf("") }
@@ -63,8 +68,6 @@ fun UserDetailsProfileSection() {
             .fillMaxWidth()
             .padding(vertical = marginSmall)
     ) {
-        // in real app, we will get the applicant from database here
-
         // User Avatar here
         Avatar(imageUrl = applicant.profileImg)
 
@@ -86,6 +89,12 @@ fun UserDetailsProfileSection() {
             Text(
                 text = "out of 10 ratings",
             )
+
+            Button(
+                onClick = { displayCommendPopup = !displayCommendPopup },
+            ) {
+                Text(text = "Rate me")
+            }
         }
     }
 
@@ -130,19 +139,14 @@ fun UserDetailsProfileSection() {
 
     Divider()
 
-    UserDetailsInfoSection(applicant)
-    UserDetailsFeedbacksSection(applicant)
+    UserDetailsForCompanyInfoSection(applicant)
+    UserDetailsForCompanyFeedbacksSection(applicant)
 }
 
 @Composable
-fun UserDetailsInfoSection(applicant: Applicant) {
-    var name by remember { mutableStateOf(applicant.name) }
-    var email by remember { mutableStateOf(applicant.email) }
-    var phone by remember { mutableStateOf(applicant.phone) }
-    var skills by remember { mutableStateOf(applicant.skills) }
-
+fun UserDetailsForCompanyInfoSection(applicant: Applicant) {
     Text(
-        text = "Edit Profile Info",
+        text = applicant.name,
         color = Color.Black,
         fontSize = fontSizeLarge,
         fontWeight = FontWeight.SemiBold,
@@ -153,47 +157,21 @@ fun UserDetailsInfoSection(applicant: Applicant) {
     )
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.Start,
         modifier = Modifier.fillMaxWidth()
     ) {
 
-        // Place input fields here
-        InputField(value = name, label = "Name") {
-            name = it
-        }
-        InputField(value = email, label = "Email") {
-            email = it
-        }
-        InputField(value = phone, label = "Phone") {
-            phone = it
-        }
-        InputField(value = skills, label = "Skills") {
-            skills = it
-        }
+        // User info here
+        Text(text = "Email: ${applicant.email}")
+        Text(text = "Phone: ${applicant.phone}")
+        Text(text = "Skills: ${applicant.skills}")
     }
 
-    Row(
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = marginSmall)
-    ) {
-        Button(
-            onClick = {
-                // Should navigate back to UserPostsScreen after Saving Profile Info
-
-            },
-        ) {
-            Text(text = "Save")
-        }
-    }
-
-    Divider()
+    Divider(Modifier.padding(top = marginSmall))
 }
 
 @Composable
-fun UserDetailsFeedbacksSection(applicant: Applicant) {
+fun UserDetailsForCompanyFeedbacksSection(applicant: Applicant) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -213,19 +191,18 @@ fun UserDetailsFeedbacksSection(applicant: Applicant) {
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
             )
-
         }
 
         Column() {
             applicant.ratings.forEach {
-                UserDetailsFeedback(it)
+                UserDetailsForCompanyFeedback(it)
             }
         }
     }
 }
 
 @Composable
-fun UserDetailsFeedback(rating: Rating) {
+fun UserDetailsForCompanyFeedback(rating: Rating) {
     Card(
         border = BorderStroke(1.dp, Color.LightGray),
         elevation = 1.dp,
@@ -266,7 +243,7 @@ fun UserDetailsFeedback(rating: Rating) {
 
 @ExperimentalAnimationApi
 @Composable
-fun UserDetailsScreenTopBar(
+fun UserDetailsForCompanyScreenTopBar(
     navController: NavController? = null,
 ) {
     Column(Modifier.shadow(elevation = 5.dp)) {

@@ -10,9 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -27,58 +25,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.freelance_app.R
-import com.example.freelance_app.data.dto.Company
 import com.example.freelance_app.data.dto.Job
-import com.example.freelance_app.data.dto.Rating
-import com.example.freelance_app.data.dto.Status
+import com.example.freelance_app.data.mock.jobs
 import com.example.freelance_app.ui.theme.*
 import com.example.freelance_app.view.reusables.CustomButton
-import com.example.freelance_app.view.reusables.RatingBox
 import com.example.freelance_app.view.reusables.SearchBar
-import java.util.*
-
-val jobs: List<Job> = listOf(
-    Job(
-        id = 1,
-        company = Company(
-            id = 1,
-            name = "ABC Company",
-            description = "Good Company",
-            logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-6ElaNy55lU4TzRca41kHkW_PVQ9K6hA2tw&usqp=CAU"
-        ),
-        position = "Dish Washer",
-        description = "We urgently need help on August 13th , 2021, 1pm - 5pm.",
-        payInHour = 15.5f,
-        status = Status.ONGOING,
-        category = "IT"
-    ),
-    Job(
-        id = 1,
-        company = Company(
-            id = 1,
-            name = "ABC Company",
-            description = "Good Company",
-            logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-6ElaNy55lU4TzRca41kHkW_PVQ9K6hA2tw&usqp=CAU"
-        ),
-        position = "Coder",
-        description = "We urgently need help on August 13th , 2021, 1pm - 5pm.",
-        payInHour = 15.5f,
-        status = Status.ONGOING,
-    ),
-    Job(
-        id = 1,
-        company = Company(
-            id = 1,
-            name = "ABC Company",
-            description = "Good Company",
-            logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-6ElaNy55lU4TzRca41kHkW_PVQ9K6hA2tw&usqp=CAU"
-        ),
-        position = "Baker",
-        description = "We urgently need help on August 13th , 2021, 1pm - 5pm.",
-        payInHour = 15.5f,
-        status = Status.ONGOING,
-    ),
-)
 
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
@@ -147,14 +98,14 @@ fun UserPostsContent() {
 }
 
 val categories: List<String> = listOf(
-    "Food", "Business", "Education", "Services", "IT", "All"
+    "All", "Food", "Business", "Education", "Services", "IT"
 )
 
 @ExperimentalFoundationApi
 @Composable
 fun CategoryPicker(onPick: (category: String) -> Unit) {
     LazyVerticalGrid(
-        cells = GridCells.Adaptive(minSize = 128.dp)
+        cells = GridCells.Adaptive(minSize = 100.dp)
     ) {
         items(categories.size) {
             CategoryPill(categories[it]) {
@@ -165,7 +116,7 @@ fun CategoryPicker(onPick: (category: String) -> Unit) {
 }
 
 @Composable
-fun CategoryPill(category: String, onPress: (catergory: String) -> Unit) {
+fun CategoryPill(category: String, onPress: (category: String) -> Unit) {
     Text(
         text = category,
         color = Color.White,
@@ -194,40 +145,44 @@ fun JobPosts(displayPosts: List<Job>) {
 
 @Composable
 fun JobPost(job: Job) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(marginMed)
-            .border(1.dp, Color.Black)
-            .padding(horizontal = marginLarge)
+    Card(
+        border = BorderStroke(1.dp, Color.LightGray),
+        elevation = 1.dp,
+        modifier = Modifier.padding(marginSmall)
     ) {
-        JobPostTitle(job)
-
-        // Job Description
-        Text(
-            text = job.description,
-            color = Color.Black,
-            textAlign = TextAlign.Start
-        )
-
-        // PayGrade and Apply Button
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = marginMed)
+                .padding(horizontal = marginMed)
         ) {
+            JobPostTitle(job)
+
+            // Job Description
             Text(
-                text = "$${job.payInHour}/hour",
+                text = job.description,
                 color = Color.Black,
                 textAlign = TextAlign.Start
             )
 
-            CustomButton(onClick = {}) {
-                Text(text = "Apply")
+            // PayGrade and Apply Button
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = marginMed)
+            ) {
+                Text(
+                    text = "$${job.payInHour}/hour",
+                    color = Color.Black,
+                    textAlign = TextAlign.Start
+                )
+
+                CustomButton(onClick = {}) {
+                    Text(text = "Apply")
+                }
             }
         }
     }
@@ -251,6 +206,9 @@ fun JobPostTitle(job: Job) {
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start
             )
+
+            Divider(Modifier.padding(1.dp))
+
             Text(
                 text = job.position,
                 color = Color.Black,
