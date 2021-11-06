@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.freelance_app.utils.CustomColors
 
@@ -18,7 +19,9 @@ fun CustomField(
     modifier: Modifier = Modifier,
     label: String = "Info",
     placeholder: String = "Company Description",
-    switch: Boolean = true
+    switch: Boolean = true,
+    bgColor: Color = CustomColors.primaryLight,
+    textColor: Color = CustomColors.primaryLight
 ) {
     var description by remember { mutableStateOf(text) }
     Row(
@@ -38,11 +41,11 @@ fun CustomField(
                     cursorColor = CustomColors.primary,
                     textColor = CustomColors.primary,
                     unfocusedBorderColor = CustomColors.primary10,
-                    backgroundColor = CustomColors.primaryLight,
+                    backgroundColor = bgColor,
                     unfocusedLabelColor = CustomColors.primary10,
                     disabledLabelColor = CustomColors.primary10,
                     disabledBorderColor = CustomColors.primary10,
-                    disabledTextColor = CustomColors.primary,
+                    disabledTextColor = textColor,
                 ),
             placeholder = {
                 Text(

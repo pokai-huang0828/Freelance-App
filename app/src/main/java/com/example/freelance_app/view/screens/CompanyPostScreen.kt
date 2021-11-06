@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.example.freelance_app.view.reusables.TopBar
 import com.example.freelance_app.view.reusablesv2.Btn
@@ -47,6 +48,7 @@ fun CompanyPostScreen(navController: NavController) {
                             "for cooking and/or serving, as directed. ",
                     label = "-",
                     switch = false,
+                    bgColor = Color.White,
                 )
                 HeaderTypography(
                     text = "Needed Skills:",
@@ -99,7 +101,8 @@ fun PostNameAndDate(text: String) {
             modifier = Modifier.weight(1f),
             label = "Dates",
             placeholder = "Dates",
-            switch = false
+            switch = false,
+            bgColor = Color.White
         )
     }
 }

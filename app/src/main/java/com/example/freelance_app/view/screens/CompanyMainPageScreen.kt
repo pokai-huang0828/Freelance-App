@@ -7,32 +7,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
-import com.example.freelance_app.view.reusables.TopBar
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.sp
-import com.example.freelance_app.R
 import com.example.freelance_app.utils.CustomColors
 import androidx.compose.material.icons.filled.FiberManualRecord
 import com.example.freelance_app.ui.theme.fontSizeLarge
-import com.example.freelance_app.ui.theme.marginSmall
 import com.example.freelance_app.view.reusables.Avatar
 import com.example.freelance_app.view.reusablesv2.Btn
 import com.example.freelance_app.view.reusablesv2.CustomField
-import com.example.freelance_app.view.reusablesv2.HeaderTypography
 
 
 data class FakePost(
@@ -43,7 +32,7 @@ data class FakePost(
 @ExperimentalAnimationApi
 @Composable
 fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
-
+    var editClicked by remember { mutableStateOf(false) }
     val posts: List<FakePost> = listOf(
         FakePost(date = "Nov 5, 2021", position = "Mover"),
         FakePost(date = "Nov 5-6, 2021", position = "Dishwasher"),
@@ -62,7 +51,7 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 20.dp,start = 20.dp)
+                        .padding(top = 20.dp, start = 20.dp)
                 ) {
                     Avatar(
                         imageUrl = "http://images.squarespace-cdn.com/content/v1/54f8c792e4b03ea829c79558/1544727583704-XD2KF76CBRCUXRQVD9K1/breka+logo+1x1+transparent.png",
@@ -78,10 +67,25 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                         .fillMaxWidth()
                         .padding(vertical = 20.dp, horizontal = 20.dp)
                 )
-                CustomField(
-                    text = "n 2010, FRESH Bakery opened its first kiosk location in Towson, Maryland. From its inception, FRESH Bakery is known as bakery unique for our square cupcakes and cakes. We take pride in using natural ingredients in our cupcakes, cakes and desserts. ",
-                )
-                BtnRow(text = "Save")
+                if (editClicked) {
+                    CustomField(
+                        text = "n 2010, FRESH Bakery opened its first kiosk location in Towson, Maryland. From its inception, FRESH Bakery is known as bakery unique for our square cupcakes and cakes. We take pride in using natural ingredients in our cupcakes, cakes and desserts. ",
+                    )
+                    BtnRow(text = "Save")
+                } else {
+                    CustomField(
+                        text = "n 2010, FRESH Bakery opened its first kiosk " +
+                                "location in Towson, Maryland. From its " +
+                                "inception, FRESH Bakery is known as bakery " +
+                                "unique for our square cupcakes and cakes. " +
+                                "We take pride in using natural ingredients " +
+                                "in our cupcakes, cakes and desserts. ",
+                        switch = false,
+                        bgColor = Color.White,
+                        textColor = Color.Black
+                    )
+                    BtnRow(text = "Edit")
+                }
                 ListOfPosts(posts)
             }
         },
