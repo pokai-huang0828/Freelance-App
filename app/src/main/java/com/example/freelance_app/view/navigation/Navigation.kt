@@ -38,8 +38,8 @@ fun Navigation() {
             UserHistoryScreen(navController = navController)
         }
         composable(route = Screen.UserDetailsScreen.route) {
-            UserDetailsScreen(navController = navController)
-//            UserDetailsScreen()
+//            UserDetailsScreen(navController = navController)
+            UserDetailsScreen()
         }
     }
 }

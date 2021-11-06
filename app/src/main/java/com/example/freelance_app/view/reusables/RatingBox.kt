@@ -12,10 +12,10 @@ import androidx.compose.ui.unit.dp
 import com.example.freelance_app.R
 
 @Composable
-fun RatingBox(rating: Int, iconSize: Int = 30) {
+fun RatingBox(rating: Int, modifier: Modifier = Modifier, iconSize: Int = 30) {
     if (rating > -1 && rating <= 5) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = modifier
         ) {
             for (i in 0..rating - 1) {
                 Icon(
