@@ -13,10 +13,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.freelance_app.ui.theme.FreelanceAppTheme
 import com.example.freelance_app.view.navigation.Navigation
-import com.example.freelance_app.view.screens.UserDetailsForCompanyScreen
-import com.example.freelance_app.view.screens.UserDetailsScreen
-import com.example.freelance_app.view.screens.UserHistoryScreen
-import com.example.freelance_app.view.screens.UserPostsScreen
+import com.example.freelance_app.view.screens.*
 
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
@@ -24,16 +21,17 @@ class MainActivity : ComponentActivity() {
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppPreferences.init(this)
         setContent {
             FreelanceAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-//                     Navigation()
+                     Navigation()
+//                    UserDetailsForCompanyScreen()
 
 //                    UserDetailsScreen()
-//                    UserDetailsForCompanyScreen()
 //                    UserPostsScreen()
-                    UserHistoryScreen()
+//                    UserHistoryScreen()
                 }
             }
         }

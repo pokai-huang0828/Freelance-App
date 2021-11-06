@@ -7,30 +7,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
-import com.example.freelance_app.view.reusables.TopBar
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.sp
-import com.example.freelance_app.R
 import com.example.freelance_app.utils.CustomColors
 import androidx.compose.material.icons.filled.FiberManualRecord
-import com.example.freelance_app.view.reusablesv2.Avatar
+import com.example.freelance_app.ui.theme.fontSizeLarge
+import com.example.freelance_app.view.reusables.Avatar
 import com.example.freelance_app.view.reusablesv2.Btn
 import com.example.freelance_app.view.reusablesv2.CustomField
-import com.example.freelance_app.view.reusablesv2.HeaderTypography
 
 
 data class FakePost(
@@ -41,49 +32,87 @@ data class FakePost(
 @ExperimentalAnimationApi
 @Composable
 fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
-
+    var btnClicked by remember { mutableStateOf(false) }
+    var companyInfo by remember {
+        mutableStateOf(
+            "In 2010, FRESH Bakery opened its first kiosk " +
+                    "location in Towson, Maryland. From its " +
+                    "inception, FRESH Bakery is known as bakery " +
+                    "unique for our square cupcakes and cakes. " +
+                    "We take pride in using natural ingredients " +
+                    "in our cupcakes, cakes and desserts. "
+        )
+    }
     val posts: List<FakePost> = listOf(
         FakePost(date = "Nov 5, 2021", position = "Mover"),
         FakePost(date = "Nov 5-6, 2021", position = "Dishwasher"),
         FakePost(date = "Nov 7, 2021", position = "Cleaner"),
     )
     Scaffold(
+        topBar = { UserDetailsForCompanyScreenTopBar() },
         content = {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                TopBar()
-                Avatar(
-                    avatarImg = R.drawable.logo_company,
-                    imageSize = 100.dp
-                )
-                HeaderTypography(
-                    text = "About Company:",
-                    fontWeight = FontWeight.Bold,
-                    alignment = Arrangement.Center,
+                Row(
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .padding(start = 10.dp)
-                        .offset(y = (-15).dp)
+                        .fillMaxWidth()
+                        .padding(top = 20.dp, start = 20.dp)
+                ) {
+                    Avatar(
+                        imageUrl = "http://images.squarespace-cdn.com/content/v1/54f8c792e4b03ea829c79558/1544727583704-XD2KF76CBRCUXRQVD9K1/breka+logo+1x1+transparent.png",
+                    )
+                }
+                Text(
+                    text = "About Company:",
+                    color = Color.Black,
+                    fontSize = fontSizeLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 20.dp, horizontal = 20.dp)
                 )
-                CustomField(
-                    text = "Lorem Ipsum is simply dummy text" +
-                            " of the printing and typesetting industry. " +
-                            "Lorem Ipsum has been the industry's standard " +
-                            "dummy text ever since the 1500s, when an unknown " +
-                            "printer took a galley of type and scrambled it to " +
-                            "make a type specimen book. It has survived not only " +
-                            "five centuries, but ",
-                )
-                BtnRow(text = "Save")
-                ListOfPosts(posts)
+                if (btnClicked) {
+                    CustomField(
+                        text = companyInfo,
+                        bgColor = Color.White,
+                        textColor = Color.Black,
+
+                    ) {
+                        companyInfo = it
+                    }
+                    BtnRow(text = "Save") {
+
+                        btnClicked = false
+                    }
+                } else {
+                    CustomField(
+                        text = companyInfo,
+                        switch = false,
+                        bgColor = CustomColors.primaryLight,
+                        textColor = CustomColors.primary,
+                    ) { }
+                    BtnRow(text = "Edit") {
+                        btnClicked = true
+                    }
+                }
+                ListOfPosts(posts){
+                    toPostScreen()
+                }
             }
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { toPostScreen() },
-                backgroundColor = CustomColors.primary,
+                onClick = {
+                    AppPreferences.mode = "Save"
+                    toPostScreen()
+                          },
+                backgroundColor = CustomColors.default,
                 contentColor = Color.White,
                 modifier = Modifier
                     .width(70.dp)
@@ -108,7 +137,11 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
 }
 
 @Composable
-fun BtnRow(text: String, alignment: Arrangement.Horizontal = Arrangement.End) {
+fun BtnRow(
+    text: String,
+    alignment: Arrangement.Horizontal = Arrangement.End,
+    clickedBtn: () -> Unit
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = alignment,
@@ -116,12 +149,12 @@ fun BtnRow(text: String, alignment: Arrangement.Horizontal = Arrangement.End) {
             .fillMaxWidth()
             .padding(vertical = 15.dp, horizontal = 20.dp)
     ) {
-        Btn(text = text)
+        Btn(text = text) { clickedBtn() }
     }
 }
 
 @Composable
-fun ListOfPosts(posts: List<FakePost>) {
+fun ListOfPosts(posts: List<FakePost>, toPostScreen:()->Unit) {
     repeat(10) {
         for (post in posts) {
             Row(
@@ -130,7 +163,10 @@ fun ListOfPosts(posts: List<FakePost>) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                    .clickable { }
+                    .clickable {
+                        AppPreferences.mode = "Delete"
+                        toPostScreen()
+                    }
             ) {
                 Icon(
                     imageVector = Icons.Filled.FiberManualRecord,

@@ -9,4 +9,5 @@ object CustomColors {
     val primary30 = Color(88, 130, 158)
     val black = Color(4, 20, 31)
     val primaryLight = Color(231, 237, 241)
+    val default = Color(50, 130, 184)
 }
