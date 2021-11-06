@@ -115,7 +115,7 @@ fun ButtonGroup(btn1: String, btn2: String) {
         modifier = Modifier.fillMaxWidth()
             .padding(vertical = 15.dp, horizontal = 20.dp)
     ) {
-        Btn(text = btn1)
-        Btn(text = btn2, padding = 15)
+        Btn(text = btn1){}
+        Btn(text = btn2, padding = 15){}
     }
 }

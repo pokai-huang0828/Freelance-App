@@ -32,7 +32,7 @@ data class FakePost(
 @ExperimentalAnimationApi
 @Composable
 fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
-    var editClicked by remember { mutableStateOf(false) }
+    var btnClicked by remember { mutableStateOf(false) }
     val posts: List<FakePost> = listOf(
         FakePost(date = "Nov 5, 2021", position = "Mover"),
         FakePost(date = "Nov 5-6, 2021", position = "Dishwasher"),
@@ -67,11 +67,13 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                         .fillMaxWidth()
                         .padding(vertical = 20.dp, horizontal = 20.dp)
                 )
-                if (editClicked) {
+                if (btnClicked) {
                     CustomField(
                         text = "n 2010, FRESH Bakery opened its first kiosk location in Towson, Maryland. From its inception, FRESH Bakery is known as bakery unique for our square cupcakes and cakes. We take pride in using natural ingredients in our cupcakes, cakes and desserts. ",
                     )
-                    BtnRow(text = "Save")
+                    BtnRow(text = "Save") {
+                        btnClicked = false
+                    }
                 } else {
                     CustomField(
                         text = "n 2010, FRESH Bakery opened its first kiosk " +
@@ -84,7 +86,9 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
                         bgColor = Color.White,
                         textColor = Color.Black
                     )
-                    BtnRow(text = "Edit")
+                    BtnRow(text = "Edit") {
+                        btnClicked = true
+                    }
                 }
                 ListOfPosts(posts)
             }
@@ -117,7 +121,11 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
 }
 
 @Composable
-fun BtnRow(text: String, alignment: Arrangement.Horizontal = Arrangement.End) {
+fun BtnRow(
+    text: String,
+    alignment: Arrangement.Horizontal = Arrangement.End,
+    clickedBtn: () -> Unit
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = alignment,
@@ -125,7 +133,7 @@ fun BtnRow(text: String, alignment: Arrangement.Horizontal = Arrangement.End) {
             .fillMaxWidth()
             .padding(vertical = 15.dp, horizontal = 20.dp)
     ) {
-        Btn(text = text)
+        Btn(text = text) { clickedBtn() }
     }
 }
 

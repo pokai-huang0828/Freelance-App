@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.sp
 import com.example.freelance_app.utils.CustomColors
 
 @Composable
-fun Btn(text: String, padding: Int = 37) {
+fun Btn(text: String, padding: Int = 37, clicked: () -> Unit) {
     TextButton(
-        onClick = { },
+        onClick = { clicked() },
         Modifier
             .border(
                 4.dp,
