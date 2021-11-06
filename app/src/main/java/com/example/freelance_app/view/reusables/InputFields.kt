@@ -12,9 +12,9 @@ import androidx.compose.ui.text.input.KeyboardType
 fun InputField(
     value: String = "",
     label: String = "",
-    onValueChange: (value: String) -> Unit,
     keyboardType: KeyboardType = KeyboardType.Text,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
+    onValueChange: (value: String) -> Unit,
 ) {
     OutlinedTextField(
         value = value,

@@ -28,7 +28,7 @@ import com.example.freelance_app.ui.theme.White
 
 @ExperimentalComposeUiApi
 @Composable
-fun SearchBar() {
+fun SearchBar(onSearch : (searchText: String) -> Unit) {
     var searchText by remember { mutableStateOf("") }
     val (focusRequester) = FocusRequester.createRefs()
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -36,7 +36,6 @@ fun SearchBar() {
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
-        elevation = 5.dp
     ) {
         Row(
             modifier = Modifier
@@ -45,7 +44,10 @@ fun SearchBar() {
         ) {
             TextField(
                 value = searchText,
-                onValueChange = { searchText = it },
+                onValueChange = {
+                    searchText = it
+                    onSearch(it)
+                },
                 modifier = Modifier
                     .background(White)
                     .focusRequester(focusRequester)
