@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.freelance_app.ui.theme.FreelanceAppTheme
 import com.example.freelance_app.view.navigation.Navigation
 import com.example.freelance_app.view.screens.UserDetailsScreen
+import com.example.freelance_app.view.screens.UserPostsScreen
 
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
@@ -21,8 +22,10 @@ class MainActivity : ComponentActivity() {
             FreelanceAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                     Navigation()
+//                     Navigation()
 
+//                    UserDetailsScreen()
+                    UserPostsScreen()
                 }
             }
         }
