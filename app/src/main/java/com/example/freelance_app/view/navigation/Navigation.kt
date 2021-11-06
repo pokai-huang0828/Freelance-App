@@ -32,7 +32,8 @@ fun Navigation() {
             CompanyApplicationsScreen(navController = navController)
         }
         composable(route = Screen.UserPostsScreen.route) {
-            UserPostsScreen(navController = navController)
+//            UserPostsScreen(navController = navController)
+            UserPostsScreen()
         }
         composable(route = Screen.UserHistoryScreen.route) {
             UserHistoryScreen(navController = navController)
