@@ -37,6 +37,7 @@ fun Navigation() {
         }
         composable(route = Screen.UserDetailsScreen.route) {
             UserDetailsScreen(navController = navController)
+//            UserDetailsScreen()
         }
     }
 }
