@@ -20,7 +20,10 @@ import com.example.freelance_app.view.reusablesv2.CustomField
 
 @ExperimentalAnimationApi
 @Composable
-fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
+fun CompanyPostScreen(
+    UserDetailsForCompanyScreen: () -> Unit,
+    navigateToCompanyMainPage: () -> Unit,
+) {
     var description by remember {
         mutableStateOf(
             "Example: " + AppPreferences.job
@@ -50,7 +53,8 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
                     DisplayCreatePost(
                         d = description,
                         s = skills,
-                        date = dates
+                        date = dates,
+                        UserDetailsForCompanyScreen = { UserDetailsForCompanyScreen() }
                     ) { d, s, date ->
                         description = d
                         skills = s
@@ -61,7 +65,8 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
                     DisplayDeleteVersion(
                         d = description,
                         s = skills,
-                        date = dates
+                        date = dates,
+                        { UserDetailsForCompanyScreen() }
                     ) {
                         navigateToCompanyMainPage()
                     }
@@ -77,7 +82,8 @@ fun DisplayCreatePost(
     s: String,
     d: String,
     date: String,
-    clicked: (String, String, String) -> Unit
+    UserDetailsForCompanyScreen: () -> Unit,
+    clicked: (String, String, String) -> Unit,
 ) {
     var description by remember {
         mutableStateOf(d)
@@ -123,7 +129,7 @@ fun DisplayCreatePost(
         textColor = Color.Black,
     ) { skills = it }
 
-    ButtonGroup(btn1 = "Save", btn2 = "Applicants") {
+    ButtonGroup(btn1 = "Save", btn2 = "Applicants", { UserDetailsForCompanyScreen() }) {
         clicked(description, skills, dates)
     }
 
@@ -134,9 +140,10 @@ fun DisplayDeleteVersion(
     d: String,
     s: String,
     date: String,
-    navigateToCompanyMainPage: () -> Unit,
+    UserDetailsForCompanyScreen: () -> Unit,
+    navigateToCompanyMainPage: () -> Unit
 ) {
-    PostNameAndDate(text = "Dishwasher", edit = false,date = date) { }
+    PostNameAndDate(text = "Dishwasher", edit = false, date = date) { }
     Text(
         text = "Job Description:",
         color = Color.Black,
@@ -169,7 +176,7 @@ fun DisplayDeleteVersion(
         textColor = CustomColors.primary,
     ) { }
 
-    ButtonGroup(btn1 = "Delete", btn2 = "Applicants") {
+    ButtonGroup(btn1 = "Delete", btn2 = "Applicants", { UserDetailsForCompanyScreen() }) {
         navigateToCompanyMainPage()
     }
 
@@ -226,7 +233,12 @@ fun PostNameAndDate(
 }
 
 @Composable
-fun ButtonGroup(btn1: String, btn2: String, clicked: () -> Unit) {
+fun ButtonGroup(
+    btn1: String,
+    btn2: String,
+    UserDetailsForCompanyScreen: () -> Unit,
+    clicked: () -> Unit
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -235,6 +247,6 @@ fun ButtonGroup(btn1: String, btn2: String, clicked: () -> Unit) {
             .padding(vertical = 25.dp, horizontal = 20.dp)
     ) {
         Btn(text = btn1) { clicked() }
-        Btn(text = btn2, padding = 15) { clicked() }
+        Btn(text = btn2, padding = 15) { UserDetailsForCompanyScreen() }
     }
 }
