@@ -21,6 +21,9 @@ import com.example.freelance_app.view.reusablesv2.CustomField
 @ExperimentalAnimationApi
 @Composable
 fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
+    var switch by remember {
+        mutableStateOf(AppPreferences.mode == "Save")
+    }
     Scaffold(
         content = {
             Column(
@@ -29,8 +32,10 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
                     .verticalScroll(rememberScrollState())
             ) {
                 TopBar()
-                if (AppPreferences.mode == "Save") {
-                    DisplayCreatePost()
+                if (switch) {
+                    DisplayCreatePost() {
+                        switch = false
+                    }
                 } else {
                     DisplayDeleteVersion {
                         navigateToCompanyMainPage()
@@ -43,7 +48,17 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
 }
 
 @Composable
-fun DisplayCreatePost() {
+fun DisplayCreatePost(clicked: () -> Unit) {
+    var description by remember {
+        mutableStateOf(
+            "Example: " + AppPreferences.job
+        )
+    }
+    var skills by remember {
+        mutableStateOf(
+            "Example: " + AppPreferences.skills
+        )
+    }
     PostNameAndDate(text = "Dishwasher", edit = true)
     Text(
         text = "Job Description:",
@@ -54,12 +69,7 @@ fun DisplayCreatePost() {
             .shadow(35.dp)
     )
     CustomField(
-        text = "Washes all wares including pots, plans, flatware, " +
-                "and glasses, by hand or using dishwashers. Correctly " +
-                "places and stores clean equipment, dishes, and utensils" +
-                " in assigned storage areas. ... May assist in cleaning " +
-                "and preparing various foods " +
-                "for cooking and/or serving, as directed. ",
+        text = description,
         label = "-",
         switch = true,
         bgColor = Color.White,
@@ -75,13 +85,7 @@ fun DisplayCreatePost() {
             .shadow(35.dp)
     )
     CustomField(
-        text = "-> Manual dexterity\n" +
-                "-> Ability to keep kitchen clean and tidy\n" +
-                "-> Reliability, professionalism and keen sense of cleanliness\n" +
-                "-> Organizational skills\n" +
-                "-> Flexibility and willingness to work shifts\n" +
-                "-> Physical strength and stamina",
-//                    modifier = Modifier.padding(top = (-15).dp),
+        text = skills,
         label = "-",
         switch = true,
         bgColor = Color.White,
@@ -89,7 +93,7 @@ fun DisplayCreatePost() {
     ) {}
 
     ButtonGroup(btn1 = AppPreferences.mode, btn2 = "Applicants") {
-//        navigateToCompanyMainPage()
+        clicked()
     }
 
 }
@@ -106,12 +110,7 @@ fun DisplayDeleteVersion(navigateToCompanyMainPage: () -> Unit) {
             .shadow(35.dp)
     )
     CustomField(
-        text = "Washes all wares including pots, plans, flatware, " +
-                "and glasses, by hand or using dishwashers. Correctly " +
-                "places and stores clean equipment, dishes, and utensils" +
-                " in assigned storage areas. ... May assist in cleaning " +
-                "and preparing various foods " +
-                "for cooking and/or serving, as directed. ",
+        text = AppPreferences.job,
         label = "-",
         switch = false,
         bgColor = CustomColors.primaryLight,
@@ -127,13 +126,7 @@ fun DisplayDeleteVersion(navigateToCompanyMainPage: () -> Unit) {
             .shadow(35.dp)
     )
     CustomField(
-        text = "-> Manual dexterity\n" +
-                "-> Ability to keep kitchen clean and tidy\n" +
-                "-> Reliability, professionalism and keen sense of cleanliness\n" +
-                "-> Organizational skills\n" +
-                "-> Flexibility and willingness to work shifts\n" +
-                "-> Physical strength and stamina",
-//                    modifier = Modifier.padding(top = (-15).dp),
+        text = AppPreferences.skills,
         label = "-",
         switch = false,
         bgColor = CustomColors.primaryLight,
@@ -148,7 +141,7 @@ fun DisplayDeleteVersion(navigateToCompanyMainPage: () -> Unit) {
 
 @Composable
 fun PostNameAndDate(text: String, edit: Boolean) {
-    var description by remember { mutableStateOf(text) }
+    var dates by remember { mutableStateOf(text) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -164,9 +157,7 @@ fun PostNameAndDate(text: String, edit: Boolean) {
         )
         if (!edit) {
             CustomField(
-                text = "From Nov 5\n" +
-                        "Till Nov 6\n" +
-                        "2021",
+                text = AppPreferences.dates,
                 modifier = Modifier.weight(1f),
                 label = "Dates",
                 placeholder = "Dates",
@@ -176,9 +167,7 @@ fun PostNameAndDate(text: String, edit: Boolean) {
             ) {}
         } else {
             CustomField(
-                text = "From Nov 5\n" +
-                        "Till Nov 6\n" +
-                        "2021",
+                text = AppPreferences.dates,
                 modifier = Modifier.weight(1f),
                 label = "Dates",
                 placeholder = "Dates",
@@ -191,7 +180,7 @@ fun PostNameAndDate(text: String, edit: Boolean) {
 }
 
 @Composable
-fun ButtonGroup(btn1: String, btn2: String, cliked: () -> Unit) {
+fun ButtonGroup(btn1: String, btn2: String, clicked: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -199,7 +188,7 @@ fun ButtonGroup(btn1: String, btn2: String, cliked: () -> Unit) {
             .fillMaxWidth()
             .padding(vertical = 25.dp, horizontal = 20.dp)
     ) {
-        Btn(text = btn1) { cliked() }
-        Btn(text = btn2, padding = 15) { cliked() }
+        Btn(text = btn1) { clicked() }
+        Btn(text = btn2, padding = 15) { clicked() }
     }
 }
