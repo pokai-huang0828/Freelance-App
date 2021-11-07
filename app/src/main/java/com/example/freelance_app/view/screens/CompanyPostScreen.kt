@@ -87,7 +87,9 @@ fun DisplayCreatePost(
     var dates by remember {
         mutableStateOf(date)
     }
-    PostNameAndDate(text = "Dishwasher", edit = true, date = dates)
+    PostNameAndDate(text = "Dishwasher", edit = true, date = dates) {
+        dates = it
+    }
     Text(
         text = "Job Description:",
         color = Color.Black,
@@ -138,7 +140,12 @@ fun DisplayDeleteVersion(
     var skills by remember {
         mutableStateOf(s)
     }
-    PostNameAndDate(text = "Dishwasher", edit = false)
+    var dates by remember {
+        mutableStateOf(s)
+    }
+    PostNameAndDate(text = "Dishwasher", edit = false) {
+        dates = it
+    }
     Text(
         text = "Job Description:",
         color = Color.Black,
@@ -178,7 +185,12 @@ fun DisplayDeleteVersion(
 }
 
 @Composable
-fun PostNameAndDate(text: String, edit: Boolean, date: String = AppPreferences.dates) {
+fun PostNameAndDate(
+    text: String,
+    edit: Boolean,
+    date: String = AppPreferences.dates,
+    transfer: (String) -> Unit,
+) {
     var dates by remember { mutableStateOf(date) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -195,14 +207,16 @@ fun PostNameAndDate(text: String, edit: Boolean, date: String = AppPreferences.d
         )
         if (!edit) {
             CustomField(
-                text = AppPreferences.dates,
+                text = dates,
                 modifier = Modifier.weight(1f),
                 label = "Dates",
                 placeholder = "Dates",
                 switch = false,
                 bgColor = CustomColors.primaryLight,
                 textColor = CustomColors.primary,
-            ) { dates = it }
+            ) {
+                dates = it
+            }
         } else {
             CustomField(
                 text = dates,
@@ -212,9 +226,12 @@ fun PostNameAndDate(text: String, edit: Boolean, date: String = AppPreferences.d
                 switch = true,
                 bgColor = Color.White,
                 textColor = Color.Black,
-            ) { dates = it }
+            ) {
+                dates = it
+            }
         }
     }
+    transfer(dates)
 }
 
 @Composable
