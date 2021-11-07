@@ -140,7 +140,7 @@ fun CompanyMainPageScreen(navController: NavController, toPostScreen: () -> Unit
 @Composable
 fun BtnRow(
     text: String,
-    alignment: Arrangement.Horizontal = Arrangement.End,
+    alignment: Arrangement.Horizontal = Arrangement.Start,
     clickedBtn: () -> Unit
 ) {
     Row(
