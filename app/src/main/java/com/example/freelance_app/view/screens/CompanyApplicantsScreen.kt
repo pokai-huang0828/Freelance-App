@@ -54,7 +54,7 @@ fun CompanyApplicationsScreen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Applications",
+                    text = "Applicants",
                     color = Color.Black,
                     fontSize = fontSizeLarge,
                     fontWeight = FontWeight.SemiBold,
@@ -136,7 +136,7 @@ fun ListOfApplicants(applicant: Applicant, navController: NavController)
                         Button(
                             modifier = Modifier
                                 .width(100.dp),
-                            onClick = { navController.navigate(Screen.CompanyMainPageScreen.route) },
+                            onClick = { navController.navigate(Screen.UserDetailsForCompanyScreen.route) },
                         ) {
                             Text(text = "Hire")
                         }
@@ -146,7 +146,7 @@ fun ListOfApplicants(applicant: Applicant, navController: NavController)
                                 .width(100.dp),
                             onClick = { visible = !visible },
                         ) {
-                            Text(text = "Deny")
+                            Text(text = "Decline")
                         }
                         Spacer(modifier = Modifier.size(10.dp))
                     }
