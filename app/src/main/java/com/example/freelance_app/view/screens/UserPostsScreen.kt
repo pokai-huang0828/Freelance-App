@@ -28,6 +28,7 @@ import com.example.freelance_app.R
 import com.example.freelance_app.data.dto.Job
 import com.example.freelance_app.data.mock.mockJobs
 import com.example.freelance_app.ui.theme.*
+import com.example.freelance_app.view.navigation.Screen
 import com.example.freelance_app.view.reusables.CustomButton
 import com.example.freelance_app.view.reusables.SearchBar
 
@@ -35,10 +36,9 @@ import com.example.freelance_app.view.reusables.SearchBar
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @Composable
-//fun UserPostsScreen(navController: NavController) {
-fun UserPostsScreen() {
+fun UserPostsScreen(navController: NavController) {
     Scaffold(
-        topBar = { UserPostsScreenTopBar() },
+        topBar = { UserPostsScreenTopBar(navController) },
         content = {
             UserPostsContent()
         }
@@ -256,37 +256,39 @@ fun UserPostsScreenTopBar(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-//                if (navController != null) {
-                IconButton(
-//                        onClick = { navController.popBackStack() },
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .size(45.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.History,
-                        contentDescription = "History",
-                        tint = White,
+                if (navController != null) {
+                    IconButton(
+                        onClick = {
+                            navController.navigate(Screen.UserHistoryScreen.route)
+                        },
                         modifier = Modifier
-                            .size(30.dp)
-                    )
-                }
-                IconButton(
-//                        onClick = { navController.popBackStack() },
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .size(45.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.AccountCircle,
-                        contentDescription = "AccountCircle",
-                        tint = White,
+                            .padding(5.dp)
+                            .size(45.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.History,
+                            contentDescription = "History",
+                            tint = White,
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+                    }
+                    IconButton(
+                        onClick = {
+                            navController.navigate(Screen.UserDetailsScreen.route)
+                        },
                         modifier = Modifier
-                            .size(30.dp)
-                    )
-//                    }
+                            .padding(5.dp)
+                            .size(45.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.AccountCircle,
+                            contentDescription = "AccountCircle",
+                            tint = White,
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+                    }
                 }
             }
         }

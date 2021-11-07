@@ -21,7 +21,7 @@ fun CustomButton(
 ) {
     Button(
         modifier = modifier.fillMaxWidth(0.5f),
-        onClick = {  },
+        onClick = { onClick() },
         enabled = enabled,
         elevation = elevation,
         shape = shape,
