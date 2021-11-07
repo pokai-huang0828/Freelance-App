@@ -21,6 +21,16 @@ import com.example.freelance_app.view.reusablesv2.CustomField
 @ExperimentalAnimationApi
 @Composable
 fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
+    var description by remember {
+        mutableStateOf(
+            "Example: " + AppPreferences.job
+        )
+    }
+    var skills by remember {
+        mutableStateOf(
+            "Example: " + AppPreferences.skills
+        )
+    }
     var switch by remember {
         mutableStateOf(AppPreferences.mode == "Save")
     }
@@ -33,11 +43,19 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
             ) {
                 TopBar()
                 if (switch) {
-                    DisplayCreatePost() {
+                    DisplayCreatePost(
+                        description = description,
+                        skills = skills
+                    ) { d, s ->
+                        description = d
+                        skills = s
                         switch = false
                     }
                 } else {
-                    DisplayDeleteVersion {
+                    DisplayDeleteVersion(
+                        d = description,
+                        s = skills
+                    ) {
                         navigateToCompanyMainPage()
                     }
                 }
@@ -48,16 +66,12 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
 }
 
 @Composable
-fun DisplayCreatePost(clicked: () -> Unit) {
+fun DisplayCreatePost(skills: String, description: String, clicked: (String, String) -> Unit) {
     var description by remember {
-        mutableStateOf(
-            "Example: " + AppPreferences.job
-        )
+        mutableStateOf(description)
     }
     var skills by remember {
-        mutableStateOf(
-            "Example: " + AppPreferences.skills
-        )
+        mutableStateOf(skills)
     }
     PostNameAndDate(text = "Dishwasher", edit = true)
     Text(
@@ -93,13 +107,23 @@ fun DisplayCreatePost(clicked: () -> Unit) {
     ) {}
 
     ButtonGroup(btn1 = AppPreferences.mode, btn2 = "Applicants") {
-        clicked()
+        clicked(description, skills)
     }
 
 }
 
 @Composable
-fun DisplayDeleteVersion(navigateToCompanyMainPage: () -> Unit) {
+fun DisplayDeleteVersion(
+    d: String,
+    s: String,
+    navigateToCompanyMainPage: () -> Unit
+) {
+    var desc by remember {
+        mutableStateOf(d)
+    }
+    var skills by remember {
+        mutableStateOf(s)
+    }
     PostNameAndDate(text = "Dishwasher", edit = false)
     Text(
         text = "Job Description:",
@@ -110,7 +134,7 @@ fun DisplayDeleteVersion(navigateToCompanyMainPage: () -> Unit) {
             .shadow(35.dp)
     )
     CustomField(
-        text = AppPreferences.job,
+        text = desc,
         label = "-",
         switch = false,
         bgColor = CustomColors.primaryLight,
@@ -126,7 +150,7 @@ fun DisplayDeleteVersion(navigateToCompanyMainPage: () -> Unit) {
             .shadow(35.dp)
     )
     CustomField(
-        text = AppPreferences.skills,
+        text = skills,
         label = "-",
         switch = false,
         bgColor = CustomColors.primaryLight,
