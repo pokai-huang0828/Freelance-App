@@ -31,9 +31,13 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
             "Example: " + AppPreferences.skills
         )
     }
+    var dates by remember {
+        mutableStateOf(AppPreferences.dates)
+    }
     var switch by remember {
         mutableStateOf(AppPreferences.mode == "Save")
     }
+
     Scaffold(
         content = {
             Column(
@@ -45,10 +49,12 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
                 if (switch) {
                     DisplayCreatePost(
                         d = description,
-                        s = skills
-                    ) { d, s ->
+                        s = skills,
+                        date = dates
+                    ) { d, s, date ->
                         description = d
                         skills = s
+                        dates = date
                         switch = false
                     }
                 } else {
@@ -66,14 +72,22 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
 }
 
 @Composable
-fun DisplayCreatePost(s: String, d: String, clicked: (String, String) -> Unit) {
+fun DisplayCreatePost(
+    s: String,
+    d: String,
+    date: String,
+    clicked: (String, String, String) -> Unit
+) {
     var description by remember {
         mutableStateOf(d)
     }
     var skills by remember {
         mutableStateOf(s)
     }
-    PostNameAndDate(text = "Dishwasher", edit = true)
+    var dates by remember {
+        mutableStateOf(date)
+    }
+    PostNameAndDate(text = "Dishwasher", edit = true, date = dates)
     Text(
         text = "Job Description:",
         color = Color.Black,
@@ -88,7 +102,7 @@ fun DisplayCreatePost(s: String, d: String, clicked: (String, String) -> Unit) {
         switch = true,
         bgColor = Color.White,
         textColor = Color.Black,
-    ) {}
+    ) { description = it }
     Text(
         text = "Needed Skills:",
         color = Color.Black,
@@ -104,10 +118,10 @@ fun DisplayCreatePost(s: String, d: String, clicked: (String, String) -> Unit) {
         switch = true,
         bgColor = Color.White,
         textColor = Color.Black,
-    ) {}
+    ) { skills = it }
 
     ButtonGroup(btn1 = "Save", btn2 = "Applicants") {
-        clicked(description, skills)
+        clicked(description, skills, dates)
     }
 
 }
@@ -139,7 +153,7 @@ fun DisplayDeleteVersion(
         switch = false,
         bgColor = CustomColors.primaryLight,
         textColor = CustomColors.primary,
-    ) {}
+    ) { desc = it }
     Text(
         text = "Needed Skills:",
         color = Color.Black,
@@ -155,7 +169,7 @@ fun DisplayDeleteVersion(
         switch = false,
         bgColor = CustomColors.primaryLight,
         textColor = CustomColors.primary,
-    ) {}
+    ) { skills = it }
 
     ButtonGroup(btn1 = "Delete", btn2 = "Applicants") {
         navigateToCompanyMainPage()
@@ -164,8 +178,8 @@ fun DisplayDeleteVersion(
 }
 
 @Composable
-fun PostNameAndDate(text: String, edit: Boolean) {
-    var dates by remember { mutableStateOf(text) }
+fun PostNameAndDate(text: String, edit: Boolean, date: String = AppPreferences.dates) {
+    var dates by remember { mutableStateOf(date) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -188,17 +202,17 @@ fun PostNameAndDate(text: String, edit: Boolean) {
                 switch = false,
                 bgColor = CustomColors.primaryLight,
                 textColor = CustomColors.primary,
-            ) {}
+            ) { dates = it }
         } else {
             CustomField(
-                text = AppPreferences.dates,
+                text = dates,
                 modifier = Modifier.weight(1f),
                 label = "Dates",
                 placeholder = "Dates",
                 switch = true,
                 bgColor = Color.White,
                 textColor = Color.Black,
-            ) {}
+            ) { dates = it }
         }
     }
 }
