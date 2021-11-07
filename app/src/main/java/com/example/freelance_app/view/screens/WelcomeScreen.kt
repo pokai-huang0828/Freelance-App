@@ -80,7 +80,13 @@ fun WelcomeScreen(navController: NavController) {
 
             CustomButton(
                 modifier = Modifier.height(50.dp),
-                onClick = { },
+                onClick = {
+                    displayTransitionScreen = true
+                    scope.launch {
+                        delay(1500L)
+                        navController.navigate(Screen.CompanyMainPageScreen.route)
+                    }
+                },
             ) {
                 Text(
                     text = "Employer", fontSize = fontSizeMed

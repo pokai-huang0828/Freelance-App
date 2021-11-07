@@ -8,18 +8,39 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
+import com.example.freelance_app.utils.CustomColors
 import com.example.freelance_app.view.reusables.TopBar
 import com.example.freelance_app.view.reusablesv2.Btn
 import com.example.freelance_app.view.reusablesv2.CustomField
-import com.example.freelance_app.view.reusablesv2.HeaderTypography
 
 
 @ExperimentalAnimationApi
 @Composable
-fun CompanyPostScreen(navController: NavController) {
+fun CompanyPostScreen(
+    UserDetailsForCompanyScreen: () -> Unit,
+    navigateToCompanyMainPage: () -> Unit,
+) {
+    var description by remember {
+        mutableStateOf(
+            "Example: " + AppPreferences.job
+        )
+    }
+    var skills by remember {
+        mutableStateOf(
+            "Example: " + AppPreferences.skills
+        )
+    }
+    var dates by remember {
+        mutableStateOf(AppPreferences.dates)
+    }
+    var switch by remember {
+        mutableStateOf(AppPreferences.mode == "Save")
+    }
+
     Scaffold(
         content = {
             Column(
@@ -28,47 +49,28 @@ fun CompanyPostScreen(navController: NavController) {
                     .verticalScroll(rememberScrollState())
             ) {
                 TopBar()
-                PostNameAndDate(text = "Dishwasher")
-                HeaderTypography(
-                    text = "Job Description:",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20,
-                    alignment = Arrangement.Start,
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .padding(bottom = 15.dp)
-                )
-                CustomField(
-                    text = "Washes all wares including pots, plans, flatware, " +
-                            "and glasses, by hand or using dishwashers. Correctly " +
-                            "places and stores clean equipment, dishes, and utensils" +
-                            " in assigned storage areas. ... May assist in cleaning " +
-                            "and preparing various foods " +
-                            "for cooking and/or serving, as directed. ",
-                    label = "-",
-                    switch = false,
-                )
-                HeaderTypography(
-                    text = "Needed Skills:",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20,
-                    alignment = Arrangement.Start,
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .padding(bottom = 15.dp)
-                )
-                CustomField(
-                    text = "-> Manual dexterity\n" +
-                            "-> Ability to keep kitchen clean and tidy\n" +
-                            "-> Reliability, professionalism and keen sense of cleanliness\n" +
-                            "-> Organizational skills\n" +
-                            "-> Flexibility and willingness to work shifts\n" +
-                            "-> Physical strength and stamina",
-//                    modifier = Modifier.padding(top = (-15).dp),
-                    label = "-",
-                    switch = false,
-                )
-                ButtonGroup(btn1 = "Save", btn2 = "Applicants")
+                if (switch) {
+                    DisplayCreatePost(
+                        d = description,
+                        s = skills,
+                        date = dates,
+                        UserDetailsForCompanyScreen = { UserDetailsForCompanyScreen() }
+                    ) { d, s, date ->
+                        description = d
+                        skills = s
+                        dates = date
+                        switch = false
+                    }
+                } else {
+                    DisplayDeleteVersion(
+                        d = description,
+                        s = skills,
+                        date = dates,
+                        { UserDetailsForCompanyScreen() }
+                    ) {
+                        navigateToCompanyMainPage()
+                    }
+                }
                 Spacer(modifier = Modifier.padding(bottom = 200.dp))
             }
         }
@@ -76,43 +78,175 @@ fun CompanyPostScreen(navController: NavController) {
 }
 
 @Composable
-fun PostNameAndDate(text: String) {
-    var description by remember { mutableStateOf(text) }
+fun DisplayCreatePost(
+    s: String,
+    d: String,
+    date: String,
+    UserDetailsForCompanyScreen: () -> Unit,
+    clicked: (String, String, String) -> Unit,
+) {
+    var description by remember {
+        mutableStateOf(d)
+    }
+    var skills by remember {
+        mutableStateOf(s)
+    }
+    var dates by remember {
+        mutableStateOf(date)
+    }
+    PostNameAndDate(text = "Dishwasher", edit = true, date = dates) {
+        dates = it
+    }
+    Text(
+        text = "Job Description:",
+        color = Color.Black,
+        fontSize = 20.sp,
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .shadow(35.dp)
+    )
+    CustomField(
+        text = description,
+        label = "-",
+        switch = true,
+        bgColor = Color.White,
+        textColor = Color.Black,
+    ) { description = it }
+    Text(
+        text = "Needed Skills:",
+        color = Color.Black,
+        fontSize = 20.sp,
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .padding(top = 20.dp)
+            .shadow(35.dp)
+    )
+    CustomField(
+        text = skills,
+        label = "-",
+        switch = true,
+        bgColor = Color.White,
+        textColor = Color.Black,
+    ) { skills = it }
+
+    ButtonGroup(btn1 = "Save", btn2 = "Applicants", { UserDetailsForCompanyScreen() }) {
+        clicked(description, skills, dates)
+    }
+
+}
+
+@Composable
+fun DisplayDeleteVersion(
+    d: String,
+    s: String,
+    date: String,
+    UserDetailsForCompanyScreen: () -> Unit,
+    navigateToCompanyMainPage: () -> Unit
+) {
+    PostNameAndDate(text = "Dishwasher", edit = false, date = date) { }
+    Text(
+        text = "Job Description:",
+        color = Color.Black,
+        fontSize = 20.sp,
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .shadow(35.dp)
+    )
+    CustomField(
+        text = d,
+        label = "-",
+        switch = false,
+        bgColor = CustomColors.primaryLight,
+        textColor = CustomColors.primary,
+    ) { }
+    Text(
+        text = "Needed Skills:",
+        color = Color.Black,
+        fontSize = 20.sp,
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .padding(top = 20.dp)
+            .shadow(35.dp)
+    )
+    CustomField(
+        text = s,
+        label = "-",
+        switch = false,
+        bgColor = CustomColors.primaryLight,
+        textColor = CustomColors.primary,
+    ) { }
+
+    ButtonGroup(btn1 = "Delete", btn2 = "Applicants", { UserDetailsForCompanyScreen() }) {
+        navigateToCompanyMainPage()
+    }
+
+}
+
+@Composable
+fun PostNameAndDate(
+    text: String,
+    edit: Boolean,
+    date: String,
+    transfer: (String) -> Unit,
+) {
+    var dates by remember { mutableStateOf(date) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.padding(top = 10.dp)
     ) {
-        HeaderTypography(
+        Text(
             text = text,
-            fontWeight = FontWeight.Bold,
-            alignment = Arrangement.Start,
+            color = Color.Black,
+            fontSize = 30.sp,
             modifier = Modifier
                 .padding(start = 20.dp)
-                .weight(1f)
-                .offset(y = (-15).dp)
+                .shadow(35.dp)
         )
-        CustomField(
-            text = "From Nov 5" +
-                    "Till Nov 6" +
-                    "2021",
-            modifier = Modifier.weight(1f),
-            label = "Dates",
-            placeholder = "Dates",
-            switch = false
-        )
+        if (!edit) {
+            CustomField(
+                text = dates,
+                modifier = Modifier.weight(1f),
+                label = "Dates",
+                placeholder = "Dates",
+                switch = false,
+                bgColor = CustomColors.primaryLight,
+                textColor = CustomColors.primary,
+            ) {
+                dates = it
+            }
+        } else {
+            CustomField(
+                text = dates,
+                modifier = Modifier.weight(1f),
+                label = "Dates",
+                placeholder = "Dates",
+                switch = true,
+                bgColor = Color.White,
+                textColor = Color.Black,
+            ) {
+                dates = it
+            }
+        }
     }
+    transfer(dates)
 }
 
 @Composable
-fun ButtonGroup(btn1: String, btn2: String) {
+fun ButtonGroup(
+    btn1: String,
+    btn2: String,
+    UserDetailsForCompanyScreen: () -> Unit,
+    clicked: () -> Unit
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth()
-            .padding(vertical = 15.dp, horizontal = 20.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 25.dp, horizontal = 20.dp)
     ) {
-        Btn(text = btn1)
-        Btn(text = btn2, padding = 15)
+        Btn(text = btn1) { clicked() }
+        Btn(text = btn2, padding = 15) { UserDetailsForCompanyScreen() }
     }
 }

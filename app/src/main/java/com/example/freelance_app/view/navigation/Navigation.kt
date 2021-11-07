@@ -2,7 +2,7 @@ package com.example.freelance_app.view.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,7 +33,11 @@ fun Navigation() {
             }
         }
         composable(route = Screen.CompanyPostScreen.route) {
-            CompanyPostScreen(navController = navController)
+            CompanyPostScreen({
+                navController.navigate(route = Screen.CompanyApplicationsScreen.route)
+            }){
+                navController.navigate(route = Screen.CompanyMainPageScreen.route)
+            }
         }
         composable(route = Screen.CompanyApplicationsScreen.route) {
             CompanyApplicationsScreen(navController = navController)

@@ -1,4 +1,4 @@
-package com.example.freelance_app.view.reusablesv2
+package com.example.freelance_app.view.reusables
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text

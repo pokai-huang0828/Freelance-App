@@ -16,17 +16,17 @@ import androidx.compose.ui.unit.sp
 import com.example.freelance_app.utils.CustomColors
 
 @Composable
-fun Btn(text: String, padding: Int = 37) {
+fun Btn(text: String, padding: Int = 37, clicked: () -> Unit) {
     TextButton(
-        onClick = { },
+        onClick = { clicked() },
         Modifier
             .border(
                 4.dp,
-                color = CustomColors.primary,
+                color = CustomColors.default,
                 shape = RoundedCornerShape(60)
             )
             .clip(RoundedCornerShape(15))
-            .background(color = CustomColors.primary)
+            .background(color = CustomColors.default)
     ) {
         Text(
             text = text,
@@ -34,7 +34,7 @@ fun Btn(text: String, padding: Int = 37) {
                 .padding(horizontal = padding.dp, vertical = 2.dp),
             color = Color.White,
             fontSize = 17.sp,
-            fontStyle = FontStyle.Italic
+            fontStyle = FontStyle.Normal
         )
     }
 }
