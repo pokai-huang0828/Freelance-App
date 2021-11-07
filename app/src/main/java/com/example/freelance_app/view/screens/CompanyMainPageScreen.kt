@@ -36,6 +36,12 @@ data class FakePost(
 @Composable
 fun CompanyMainPageScreen(navController: NavController, toPostScreen: () -> Unit,) {
     var btnClicked by remember { mutableStateOf(false) }
+    var btnClicked2 by remember { mutableStateOf(false) }
+    var companyName by remember {
+        mutableStateOf(
+            "BREKA backery & cafe"
+        )
+    }
     var companyInfo by remember {
         mutableStateOf(
             "In 2010, FRESH Bakery opened its first kiosk " +
@@ -71,6 +77,40 @@ fun CompanyMainPageScreen(navController: NavController, toPostScreen: () -> Unit
                     )
                 }
                 Text(
+                    text = "Name:",
+                    color = Color.Black,
+                    fontSize = fontSizeLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp, horizontal = 20.dp)
+                )
+                if (btnClicked2) {
+                    CustomField(
+                        text = companyName,
+                        bgColor = Color.White,
+                        textColor = Color.Black,
+
+                        ) {
+                        companyName = it
+                    }
+                    BtnRow(text = "Save") {
+                        btnClicked2 = false
+                    }
+                } else {
+                    CustomField(
+                        text = companyName,
+                        switch = false,
+                        bgColor = CustomColors.primaryLight,
+                        textColor = CustomColors.primary,
+                    ) { }
+
+                    BtnRow(text = "Edit") {
+                        btnClicked2 = true
+                    }
+                }
+                Text(
                     text = "About Company:",
                     color = Color.Black,
                     fontSize = fontSizeLarge,
@@ -78,7 +118,7 @@ fun CompanyMainPageScreen(navController: NavController, toPostScreen: () -> Unit
                     textAlign = TextAlign.Start,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 20.dp, horizontal = 20.dp)
+                        .padding(vertical = 10.dp, horizontal = 20.dp)
                 )
                 if (btnClicked) {
                     CustomField(
@@ -90,7 +130,6 @@ fun CompanyMainPageScreen(navController: NavController, toPostScreen: () -> Unit
                         companyInfo = it
                     }
                     BtnRow(text = "Save") {
-
                         btnClicked = false
                     }
                 } else {

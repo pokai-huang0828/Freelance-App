@@ -136,7 +136,7 @@ fun ListOfApplicants(applicant: Applicant, navController: NavController)
                         Button(
                             modifier = Modifier
                                 .width(100.dp),
-                            onClick = { navController.navigate(Screen.UserDetailsForCompanyScreen.route) },
+                            onClick = { navController.navigate(Screen.CompanyMainPageScreen.route) },
                         ) {
                             Text(text = "Hire")
                         }
