@@ -18,9 +18,8 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-//        startDestination = Screen.WelcomeScreen.route
-        startDestination = Screen.CompanyMainPageScreen.route
-
+        startDestination = Screen.WelcomeScreen.route
+//        startDestination = Screen.CompanyMainPageScreen.route
     ) {
         composable(route = Screen.WelcomeScreen.route) {
             WelcomeScreen(navController = navController, )
@@ -40,16 +39,13 @@ fun Navigation() {
             CompanyApplicationsScreen(navController = navController)
         }
         composable(route = Screen.UserPostsScreen.route) {
-//            UserPostsScreen(navController = navController)
-            UserPostsScreen()
+            UserPostsScreen(navController = navController)
         }
         composable(route = Screen.UserHistoryScreen.route) {
-//            UserHistoryScreen(navController = navController)
-            UserHistoryScreen()
+            UserHistoryScreen(navController = navController)
         }
         composable(route = Screen.UserDetailsScreen.route) {
-//            UserDetailsScreen(navController = navController)
-            UserDetailsScreen()
+            UserDetailsScreen(navController = navController)
         }
     }
 }

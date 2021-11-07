@@ -47,7 +47,7 @@ fun TopBar(navController: NavController? = null) {
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                if(navController != null){
+                if (navController != null) {
                     IconButton(
                         onClick = { navController.popBackStack() },
                         modifier = Modifier

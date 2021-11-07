@@ -1,5 +1,6 @@
 package com.example.freelance_app.view.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,8 +16,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.freelance_app.R
 import com.example.freelance_app.ui.theme.*
+import com.example.freelance_app.view.navigation.Screen
 import com.example.freelance_app.view.reusables.*
-
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 // These are testing for reusable components if you are going to work on this page
@@ -24,91 +29,88 @@ import com.example.freelance_app.view.reusables.*
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(MaterialTheme.colors.primaryVariant)
-        .padding(bottom = 30.dp),
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Row{
-            Image(painter = painterResource(R.drawable.logo_onlytext),
-                contentDescription = null,
-                modifier= Modifier.size(250.dp))
-        }
+    var displayTransitionScreen by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
-        Text(
-            text="A solution for your emergency business",
-            fontSize = fontSizeLarge,
-            fontWeight = FontWeight.ExtraBold,
-            color = White,
-            textAlign = TextAlign.Center
-        )
+    if (displayTransitionScreen) {
+        SignInScreen(navController = navController)
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.primaryVariant)
+                .padding(bottom = 30.dp)
+                .padding(horizontal = marginMed),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // App logo
+            Row {
+                Image(
+                    painter = painterResource(R.drawable.logo_onlytext),
+                    contentDescription = null,
+                    modifier = Modifier.size(250.dp)
+                )
+            }
 
-        Spacer(modifier = Modifier.height(100.dp))
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.weight(2f),
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                Text (text="Are you an",
+            // App banner text
+            Text(
+                text = "We Got Jobs for You!",
+                fontSize = fontSizeLarge,
+                fontWeight = FontWeight.ExtraBold,
+                color = White,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(100.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = "Sign In As",
                     fontSize = fontSizeMed,
                     fontWeight = FontWeight.ExtraBold,
                     color = White,
                     textAlign = TextAlign.Center
                 )
             }
-            Spacer(modifier = Modifier.height(30.dp).weight(1f))
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            CustomButton(
+                modifier = Modifier.height(50.dp),
+                onClick = { },
+            ) {
+                Text(
+                    text = "Employer", fontSize = fontSizeMed
+                )
+            }
+
+            Text(
+                text = "Or",
+                fontSize = fontSizeMed,
+                color = White,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(10.dp)
+            )
+
+            CustomButton(
+                modifier = Modifier.height(50.dp),
+                onClick = {
+                    displayTransitionScreen = true
+                    scope.launch {
+                        delay(1500L)
+                        navController.navigate(Screen.UserPostsScreen.route)
+                    }
+                },
+            ) {
+                Text(
+                    text = "Job Seeker", fontSize = fontSizeMed,
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.height(30.dp))
-
-        CustomButton(
-            modifier = Modifier
-                .height(50.dp),
-            onClick = {  },
-        ) {
-            Text(text = "Employer")
-        }
-        Text (text="Or",
-            fontSize = fontSizeSmall,
-            color = White,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(10.dp)
-        )
-        CustomButton(
-            modifier = Modifier
-                .height(50.dp),
-            onClick = {  },
-        ) {
-            Text(text = "Applicant")
-        }
     }
+
 }
-
-
-
-
-
-//    var email by remember { mutableStateOf("") }
-//
-//    Column {
-//            TopBar()
-//            InputField(
-//                value = email,
-//                label = "Email",
-//                onValueChange = { email = it },
-//                keyboardType = KeyboardType.Email,
-//                modifier = Modifier
-//                    .fillMaxWidth(),
-//            )
-//            Spacer(modifier = Modifier.size(5.dp))
-//            CustomButton(
-//                modifier = Modifier
-//                    .height(50.dp),
-//                onClick = {  },
-//            ) {
-//                Text(text = "Button")
-//            }
-//            Spacer(modifier = Modifier.size(5.dp))
-//            SearchBar()
-//            Spacer(modifier = Modifier.size(5.dp))
-//            Avatar(imageUrl = "https://i1.kknews.cc/SIG=p567ci/3155000qo23rs0nr60p2.jpg")
-//        }
-

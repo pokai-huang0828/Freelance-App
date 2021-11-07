@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.freelance_app.data.dto.Job
 import com.example.freelance_app.data.dto.Status
@@ -25,10 +26,9 @@ import com.example.freelance_app.view.reusables.TopBar
 
 @ExperimentalAnimationApi
 @Composable
-//fun UserHistoryScreen(navController: NavController) {
-fun UserHistoryScreen() {
+fun UserHistoryScreen(navController: NavController) {
     Scaffold(
-        topBar = { TopBar() },
+        topBar = { TopBar(navController) },
         content = {
             UserHistoryContent()
         }
