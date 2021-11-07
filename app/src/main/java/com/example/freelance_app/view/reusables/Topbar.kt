@@ -11,6 +11,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.freelance_app.ui.theme.White
+import com.example.freelance_app.view.navigation.Screen
 
 // if you want back button, pass navController as a parameter
 @ExperimentalAnimationApi
@@ -48,6 +50,20 @@ fun TopBar(navController: NavController? = null) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 if (navController != null) {
+                    IconButton(
+                        onClick = { navController.navigate(Screen.WelcomeScreen.route) },
+                        modifier = Modifier
+                            .padding(5.dp)
+                            .size(45.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Logout,
+                            contentDescription = "Logout",
+                            tint = White,
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+                    }
                     IconButton(
                         onClick = { navController.popBackStack() },
                         modifier = Modifier
