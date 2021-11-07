@@ -23,22 +23,22 @@ import com.example.freelance_app.data.dto.Applicant
 import com.example.freelance_app.data.dto.Rating
 import com.example.freelance_app.data.mock.applicant
 import com.example.freelance_app.ui.theme.*
+import com.example.freelance_app.view.navigation.Screen
 import com.example.freelance_app.view.reusables.*
 
 @ExperimentalAnimationApi
 @Composable
-//fun UserDetailsScreen(navController: NavController) {
-fun UserDetailsScreen() {
+fun UserDetailsScreen(navController: NavController) {
     Scaffold(
-        topBar = { UserDetailsScreenTopBar() },
+        topBar = { UserDetailsScreenTopBar(navController) },
         content = {
-            UserDetailsEditContent()
+            UserDetailsEditContent(navController)
         }
     )
 }
 
 @Composable
-fun UserDetailsEditContent() {
+fun UserDetailsEditContent(navController: NavController) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -46,12 +46,12 @@ fun UserDetailsEditContent() {
             .padding(horizontal = marginMed)
             .verticalScroll(scrollState)
     ) {
-        UserDetailsProfileSection()
+        UserDetailsProfileSection(navController)
     }
 }
 
 @Composable
-fun UserDetailsProfileSection() {
+fun UserDetailsProfileSection(navController: NavController) {
     var displayCommendPopup by remember { mutableStateOf(false) }
     var rating by remember { mutableStateOf(1) }
     var comment by remember { mutableStateOf("") }
@@ -130,12 +130,15 @@ fun UserDetailsProfileSection() {
 
     Divider()
 
-    UserDetailsInfoSection(applicant)
+    UserDetailsInfoSection(navController, applicant)
     UserDetailsFeedbacksSection(applicant)
 }
 
 @Composable
-fun UserDetailsInfoSection(applicant: Applicant) {
+fun UserDetailsInfoSection(
+    navController: NavController,
+    applicant: Applicant
+) {
     var name by remember { mutableStateOf(applicant.name) }
     var email by remember { mutableStateOf(applicant.email) }
     var phone by remember { mutableStateOf(applicant.phone) }
@@ -182,7 +185,7 @@ fun UserDetailsInfoSection(applicant: Applicant) {
         Button(
             onClick = {
                 // Should navigate back to UserPostsScreen after Saving Profile Info
-
+                navController.popBackStack()
             },
         ) {
             Text(text = "Save")
@@ -290,37 +293,35 @@ fun UserDetailsScreenTopBar(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-//                if (navController != null) {
-                IconButton(
-//                        onClick = { navController.popBackStack() },
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .size(45.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Logout,
-                        contentDescription = "Logout",
-                        tint = White,
+                if (navController != null) {
+                    IconButton(
+                        onClick = { navController.navigate(Screen.WelcomeScreen.route) },
                         modifier = Modifier
-                            .size(30.dp)
-                    )
-                }
-                IconButton(
-//                        onClick = { navController.popBackStack() },
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .size(45.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBackIos,
-                        contentDescription = "Back",
-                        tint = White,
+                            .padding(5.dp)
+                            .size(45.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Logout,
+                            contentDescription = "Logout",
+                            tint = White,
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+                    }
+                    IconButton(
+                        onClick = { navController.popBackStack() },
                         modifier = Modifier
-                            .size(30.dp)
-                    )
-//                    }
+                            .padding(5.dp)
+                            .size(45.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBackIos,
+                            contentDescription = "Back",
+                            tint = White,
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+                    }
                 }
             }
         }
