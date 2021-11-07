@@ -26,9 +26,9 @@ class MainActivity : ComponentActivity() {
             FreelanceAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                     Navigation()
+                    Navigation()
 //                    UserDetailsForCompanyScreen()
-
+//                        CompanyApplicationsScreen()
 //                    UserDetailsScreen()
 //                    UserPostsScreen()
 //                    UserHistoryScreen()
@@ -37,4 +37,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-

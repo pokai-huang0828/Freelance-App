@@ -9,5 +9,6 @@
     <string name="user_posts_screen">UserPostsScreen</string>
     <string name="user_history_screen">UserHistoryScreen</string>
     <string name="user_details_screen">UserDetailsScreen</string>
+    <string name="user_details_for_company_screen">UserDetailsForCompanyScreen</string>
 
 </resources>
