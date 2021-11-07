@@ -44,8 +44,8 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
                 TopBar()
                 if (switch) {
                     DisplayCreatePost(
-                        description = description,
-                        skills = skills
+                        d = description,
+                        s = skills
                     ) { d, s ->
                         description = d
                         skills = s
@@ -66,12 +66,12 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
 }
 
 @Composable
-fun DisplayCreatePost(skills: String, description: String, clicked: (String, String) -> Unit) {
+fun DisplayCreatePost(s: String, d: String, clicked: (String, String) -> Unit) {
     var description by remember {
-        mutableStateOf(description)
+        mutableStateOf(d)
     }
     var skills by remember {
-        mutableStateOf(skills)
+        mutableStateOf(s)
     }
     PostNameAndDate(text = "Dishwasher", edit = true)
     Text(
@@ -106,7 +106,7 @@ fun DisplayCreatePost(skills: String, description: String, clicked: (String, Str
         textColor = Color.Black,
     ) {}
 
-    ButtonGroup(btn1 = AppPreferences.mode, btn2 = "Applicants") {
+    ButtonGroup(btn1 = "Save", btn2 = "Applicants") {
         clicked(description, skills)
     }
 
@@ -157,7 +157,7 @@ fun DisplayDeleteVersion(
         textColor = CustomColors.primary,
     ) {}
 
-    ButtonGroup(btn1 = AppPreferences.mode, btn2 = "Applicants") {
+    ButtonGroup(btn1 = "Delete", btn2 = "Applicants") {
         navigateToCompanyMainPage()
     }
 
