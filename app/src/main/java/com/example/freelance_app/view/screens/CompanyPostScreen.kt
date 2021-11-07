@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.freelance_app.ui.theme.fontSizeLarge
 import com.example.freelance_app.utils.CustomColors
 import com.example.freelance_app.view.reusables.TopBar
 import com.example.freelance_app.view.reusablesv2.Btn
@@ -21,7 +23,7 @@ import com.example.freelance_app.view.reusablesv2.HeaderTypography
 
 @ExperimentalAnimationApi
 @Composable
-fun CompanyPostScreen(navigateToCompanyMainPage:()->Unit) {
+fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
     Scaffold(
         content = {
             Column(
@@ -31,14 +33,11 @@ fun CompanyPostScreen(navigateToCompanyMainPage:()->Unit) {
             ) {
                 TopBar()
                 PostNameAndDate(text = "Dishwasher")
-                HeaderTypography(
+                Text(
                     text = "Job Description:",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20,
-                    alignment = Arrangement.Start,
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .padding(bottom = 15.dp)
+                    color = Color.Black,
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(horizontal = 20.dp)
                 )
                 CustomField(
                     text = "Washes all wares including pots, plans, flatware, " +
@@ -52,14 +51,13 @@ fun CompanyPostScreen(navigateToCompanyMainPage:()->Unit) {
                     bgColor = CustomColors.primaryLight,
                     textColor = CustomColors.primary,
                 ) {}
-                HeaderTypography(
+                Text(
                     text = "Needed Skills:",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20,
-                    alignment = Arrangement.Start,
+                    color = Color.Black,
+                    fontSize = 20.sp,
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
-                        .padding(bottom = 15.dp)
+                        .padding(top = 20.dp)
                 )
                 CustomField(
                     text = "-> Manual dexterity\n" +
@@ -75,7 +73,7 @@ fun CompanyPostScreen(navigateToCompanyMainPage:()->Unit) {
                     textColor = CustomColors.primary,
                 ) {}
 
-                ButtonGroup(btn1 = AppPreferences.data, btn2 = "Applicants"){
+                ButtonGroup(btn1 = AppPreferences.data, btn2 = "Applicants") {
                     navigateToCompanyMainPage()
                 }
                 Spacer(modifier = Modifier.padding(bottom = 200.dp))
@@ -122,7 +120,7 @@ fun ButtonGroup(btn1: String, btn2: String, cliked: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 15.dp, horizontal = 20.dp)
+            .padding(vertical = 25.dp, horizontal = 20.dp)
     ) {
         Btn(text = btn1) { cliked() }
         Btn(text = btn2, padding = 15) { cliked() }
