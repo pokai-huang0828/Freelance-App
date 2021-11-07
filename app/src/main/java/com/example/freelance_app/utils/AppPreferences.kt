@@ -27,9 +27,7 @@ object AppPreferences {
                 "-> Physical strength and stamina"
     )
     private val DATES = Pair(
-        "dates", "From Nov 5\n" +
-                "Till Nov 6\n" +
-                "2021"
+        "dates", "Nov 5 - Nov 6, 2021"
     )
 
     fun init(context: Context) {

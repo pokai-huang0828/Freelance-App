@@ -105,6 +105,7 @@ fun DisplayCreatePost(
         fontSize = 20.sp,
         modifier = Modifier
             .padding(horizontal = 20.dp)
+            .padding(top = 10.dp)
             .shadow(35.dp)
     )
     CustomField(
@@ -145,13 +146,14 @@ fun DisplayDeleteVersion(
     UserDetailsForCompanyScreen: () -> Unit,
     navigateToCompanyMainPage: () -> Unit
 ) {
-    PostNameAndDate(text = "Dishwasher", edit = false, date = date) { }
+    PostNameAndDate(text = "Job Position: Dishwasher", edit = false, date = date) { }
     Text(
         text = "Job Description:",
         color = Color.Black,
         fontSize = 20.sp,
         modifier = Modifier
             .padding(horizontal = 20.dp)
+            .padding(top = 10.dp)
             .shadow(35.dp)
     )
     CustomField(
@@ -206,30 +208,37 @@ fun PostNameAndDate(
                 .padding(start = 20.dp)
                 .shadow(35.dp)
         )
-        if (!edit) {
-            CustomField(
-                text = dates,
-                modifier = Modifier.weight(1f),
-                label = "Dates",
-                placeholder = "Dates",
-                switch = false,
-                bgColor = CustomColors.primaryLight,
-                textColor = CustomColors.primary,
-            ) {
-                dates = it
-            }
-        } else {
-            CustomField(
-                text = dates,
-                modifier = Modifier.weight(1f),
-                label = "Dates",
-                placeholder = "Dates",
-                switch = true,
-                bgColor = Color.White,
-                textColor = Color.Black,
-            ) {
-                dates = it
-            }
+    }
+    Text(
+        text = "Dates:",
+        color = Color.Black,
+        fontSize = 20.sp,
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .padding(top = 10.dp)
+            .shadow(35.dp)
+    )
+    if (!edit) {
+        CustomField(
+            text = dates,
+            label = "-",
+            placeholder = "Dates",
+            switch = false,
+            bgColor = CustomColors.primaryLight,
+            textColor = CustomColors.primary,
+        ) {
+            dates = it
+        }
+    } else {
+        CustomField(
+            text = dates,
+            label = "-",
+            placeholder = "Dates",
+            switch = true,
+            bgColor = Color.White,
+            textColor = Color.Black,
+        ) {
+            dates = it
         }
     }
     transfer(dates)

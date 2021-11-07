@@ -18,6 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.freelance_app.utils.CustomColors
 import androidx.compose.material.icons.filled.FiberManualRecord
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.freelance_app.ui.theme.fontSizeLarge
 import com.example.freelance_app.view.reusables.Avatar
@@ -98,10 +100,20 @@ fun CompanyMainPageScreen(navController: NavController, toPostScreen: () -> Unit
                         bgColor = CustomColors.primaryLight,
                         textColor = CustomColors.primary,
                     ) { }
+
                     BtnRow(text = "Edit") {
                         btnClicked = true
                     }
                 }
+                Text(
+                    text = "Current Postings:",
+                    color = Color.Black,
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                        .padding(bottom = 5.dp)
+                        .shadow(35.dp)
+                )
                 ListOfPosts(posts){
                     toPostScreen()
                 }
