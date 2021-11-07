@@ -22,20 +22,20 @@ fun Navigation() {
 //        startDestination = Screen.CompanyMainPageScreen.route
     ) {
         composable(route = Screen.WelcomeScreen.route) {
-            WelcomeScreen(navController = navController, )
+            WelcomeScreen(navController = navController)
         }
         composable(route = Screen.SignInScreen.route) {
             SignInScreen(navController = navController)
         }
         composable(route = Screen.CompanyMainPageScreen.route) {
-            CompanyMainPageScreen(){
+            CompanyMainPageScreen(navController = navController) {
                 navController.navigate(route = Screen.CompanyPostScreen.route)
             }
         }
         composable(route = Screen.CompanyPostScreen.route) {
-            CompanyPostScreen({
+            CompanyPostScreen(navController = navController,{
                 navController.navigate(route = Screen.CompanyApplicantsScreen.route)
-            }){
+            }) {
                 navController.navigate(route = Screen.CompanyMainPageScreen.route)
             }
         }

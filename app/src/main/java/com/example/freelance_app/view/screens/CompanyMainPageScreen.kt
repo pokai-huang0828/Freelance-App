@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.freelance_app.utils.CustomColors
 import androidx.compose.material.icons.filled.FiberManualRecord
+import androidx.navigation.NavController
 import com.example.freelance_app.ui.theme.fontSizeLarge
 import com.example.freelance_app.view.reusables.Avatar
 import com.example.freelance_app.view.reusablesv2.Btn
@@ -31,7 +32,7 @@ data class FakePost(
 
 @ExperimentalAnimationApi
 @Composable
-fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
+fun CompanyMainPageScreen(navController: NavController, toPostScreen: () -> Unit,) {
     var btnClicked by remember { mutableStateOf(false) }
     var companyInfo by remember {
         mutableStateOf(
@@ -49,7 +50,7 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
         FakePost(date = "Nov 7, 2021", position = "Cleaner"),
     )
     Scaffold(
-        topBar = { UserDetailsForCompanyScreenTopBar() },
+        topBar = { UserDetailsForCompanyScreenTopBar(navController = navController) },
         content = {
             Column(
                 modifier = Modifier
