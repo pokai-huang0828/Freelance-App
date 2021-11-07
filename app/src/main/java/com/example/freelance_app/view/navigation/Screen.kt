@@ -8,7 +8,7 @@ sealed class Screen(val route: String, @StringRes val resourceID: Int) {
     object SignInScreen : Screen("signInScreen", R.string.sign_in_screen)
     object CompanyMainPageScreen : Screen("companyMainPageScreen", R.string.company_main_page_screen)
     object CompanyPostScreen : Screen("companyPostScreen", R.string.company_post_screen)
-    object CompanyApplicationsScreen : Screen("companyApplicationsScreen", R.string.company_applications_screen)
+    object CompanyApplicantsScreen : Screen("companyApplicationsScreen", R.string.company_applications_screen)
     object UserPostsScreen : Screen("userPostsScreen", R.string.user_posts_screen)
     object UserHistoryScreen : Screen("userHistoryScreen", R.string.user_history_screen)
     object UserDetailsScreen : Screen("userDetailsScreen", R.string.user_details_screen)

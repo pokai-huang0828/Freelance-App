@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.freelance_app.utils.CustomColors
 import com.example.freelance_app.view.reusables.TopBar
 import com.example.freelance_app.view.reusablesv2.Btn
@@ -20,9 +21,9 @@ import com.example.freelance_app.view.reusablesv2.CustomField
 
 @ExperimentalAnimationApi
 @Composable
-fun CompanyPostScreen(
+fun CompanyPostScreen( navController: NavController,
     UserDetailsForCompanyScreen: () -> Unit,
-    navigateToCompanyMainPage: () -> Unit,
+    navigateToCompanyMainPage: () -> Unit
 ) {
     var description by remember {
         mutableStateOf(
@@ -48,7 +49,7 @@ fun CompanyPostScreen(
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                TopBar()
+                TopBar(navController = navController)
                 if (switch) {
                     DisplayCreatePost(
                         d = description,

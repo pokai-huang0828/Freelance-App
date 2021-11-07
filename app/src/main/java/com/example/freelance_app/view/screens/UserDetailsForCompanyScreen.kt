@@ -33,7 +33,7 @@ import com.example.freelance_app.view.reusables.RatingBox
 fun UserDetailsForCompanyScreen(navController: NavController) {
 //fun UserDetailsForCompanyScreen() {
     Scaffold(
-        topBar = { UserDetailsForCompanyScreenTopBar() },
+        topBar = { UserDetailsForCompanyScreenTopBar(navController = navController) },
         content = {
             UserDetailsForCompanyEditContent()
         }
