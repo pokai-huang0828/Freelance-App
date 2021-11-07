@@ -9,8 +9,7 @@ object AppPreferences {
     private lateinit var preferences: SharedPreferences
 
     //SharedPreferences variables: (we have only one)
-    private val DATA = Pair("data", "")
-    private val EDIT_MODE = Pair("edit", "false")
+    private val APP_MODE = Pair("mode", "")
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences(NAME, MODE)
@@ -22,15 +21,10 @@ object AppPreferences {
         editor.apply()
     }
 
-    var data: String
-        get() = preferences.getString(DATA.first, DATA.second) ?: ""
+    var mode: String
+        get() = preferences.getString(APP_MODE.first, APP_MODE.second) ?: ""
         set(value) = preferences.edit {
-            it.putString(DATA.first, value)
-        }
-    var edit: String
-        get() = preferences.getString(EDIT_MODE.first, EDIT_MODE.second) ?: ""
-        set(value) = preferences.edit {
-            it.putString(EDIT_MODE.first, value)
+            it.putString(APP_MODE.first, value)
         }
 
 }

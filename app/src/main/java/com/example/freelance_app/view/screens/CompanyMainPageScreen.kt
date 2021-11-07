@@ -109,7 +109,7 @@ fun CompanyMainPageScreen(toPostScreen: () -> Unit) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    AppPreferences.data = "Save"
+                    AppPreferences.mode = "Save"
                     toPostScreen()
                           },
                 backgroundColor = CustomColors.default,
@@ -164,7 +164,7 @@ fun ListOfPosts(posts: List<FakePost>, toPostScreen:()->Unit) {
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
                     .clickable {
-                        AppPreferences.data = "Delete"
+                        AppPreferences.mode = "Delete"
                         toPostScreen()
                     }
             ) {
