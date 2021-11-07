@@ -21,7 +21,8 @@ import com.example.freelance_app.view.reusablesv2.CustomField
 
 @ExperimentalAnimationApi
 @Composable
-fun CompanyPostScreen( navController: NavController,
+fun CompanyPostScreen(
+    navController: NavController,
     UserDetailsForCompanyScreen: () -> Unit,
     navigateToCompanyMainPage: () -> Unit
 ) {
@@ -176,9 +177,10 @@ fun DisplayDeleteVersion(
         bgColor = CustomColors.primaryLight,
         textColor = CustomColors.primary,
     ) { }
-
-    ButtonGroup(btn1 = "Delete", btn2 = "Applicants", { UserDetailsForCompanyScreen() }) {
-        navigateToCompanyMainPage()
+    if (AppPreferences.mode != "UserMode") {
+        ButtonGroup(btn1 = "Delete", btn2 = "Applicants", { UserDetailsForCompanyScreen() }) {
+            navigateToCompanyMainPage()
+        }
     }
 
 }

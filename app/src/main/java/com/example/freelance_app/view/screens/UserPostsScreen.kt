@@ -40,7 +40,7 @@ fun UserPostsScreen(navController: NavController) {
     Scaffold(
         topBar = { UserPostsScreenTopBar(navController) },
         content = {
-            UserPostsContent()
+            UserPostsContent(navController)
         }
     )
 }
@@ -49,7 +49,7 @@ fun UserPostsScreen(navController: NavController) {
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @Composable
-fun UserPostsContent() {
+fun UserPostsContent(navController: NavController) {
     var searchTerm by remember { mutableStateOf("") }
     val originPosts by remember { mutableStateOf(mockJobs) }
     var displayPosts by remember { mutableStateOf(mockJobs) }
@@ -93,7 +93,7 @@ fun UserPostsContent() {
         }
 
         // jobs
-        JobPosts(displayPosts)
+        JobPosts(navController, displayPosts)
     }
 }
 
@@ -131,26 +131,31 @@ fun CategoryPill(category: String, onPress: (category: String) -> Unit) {
 }
 
 @Composable
-fun JobPosts(displayPosts: List<Job>) {
+fun JobPosts(navController: NavController, displayPosts: List<Job>) {
     if (displayPosts.isEmpty()) {
         Text("No new posts.")
     } else {
         LazyColumn() {
             items(displayPosts.size) {
-                JobPost(displayPosts[it])
+                JobPost(navController, displayPosts[it])
             }
         }
     }
 }
 
 @Composable
-fun JobPost(job: Job) {
+fun JobPost(navController: NavController, job: Job) {
     var enableApplyButton by remember { mutableStateOf(true) }
 
     Card(
         border = BorderStroke(1.dp, Color.LightGray),
         elevation = 1.dp,
-        modifier = Modifier.padding(marginSmall)
+        modifier = Modifier
+            .padding(marginSmall)
+            .clickable {
+                AppPreferences.mode = "UserMode"
+                navController.navigate(Screen.CompanyPostScreen.route)
+            }
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -186,7 +191,7 @@ fun JobPost(job: Job) {
                     enabled = enableApplyButton,
                     onClick = {
                         enableApplyButton = !enableApplyButton
-                }) {
+                    }) {
                     Text(text = "Apply")
                 }
             }
