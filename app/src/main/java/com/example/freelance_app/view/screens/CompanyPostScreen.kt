@@ -60,7 +60,8 @@ fun CompanyPostScreen(navigateToCompanyMainPage: () -> Unit) {
                 } else {
                     DisplayDeleteVersion(
                         d = description,
-                        s = skills
+                        s = skills,
+                        date = dates
                     ) {
                         navigateToCompanyMainPage()
                     }
@@ -132,20 +133,10 @@ fun DisplayCreatePost(
 fun DisplayDeleteVersion(
     d: String,
     s: String,
-    navigateToCompanyMainPage: () -> Unit
+    date: String,
+    navigateToCompanyMainPage: () -> Unit,
 ) {
-    var desc by remember {
-        mutableStateOf(d)
-    }
-    var skills by remember {
-        mutableStateOf(s)
-    }
-    var dates by remember {
-        mutableStateOf(s)
-    }
-    PostNameAndDate(text = "Dishwasher", edit = false) {
-        dates = it
-    }
+    PostNameAndDate(text = "Dishwasher", edit = false,date = date) { }
     Text(
         text = "Job Description:",
         color = Color.Black,
@@ -155,12 +146,12 @@ fun DisplayDeleteVersion(
             .shadow(35.dp)
     )
     CustomField(
-        text = desc,
+        text = d,
         label = "-",
         switch = false,
         bgColor = CustomColors.primaryLight,
         textColor = CustomColors.primary,
-    ) { desc = it }
+    ) { }
     Text(
         text = "Needed Skills:",
         color = Color.Black,
@@ -171,12 +162,12 @@ fun DisplayDeleteVersion(
             .shadow(35.dp)
     )
     CustomField(
-        text = skills,
+        text = s,
         label = "-",
         switch = false,
         bgColor = CustomColors.primaryLight,
         textColor = CustomColors.primary,
-    ) { skills = it }
+    ) { }
 
     ButtonGroup(btn1 = "Delete", btn2 = "Applicants") {
         navigateToCompanyMainPage()
@@ -188,7 +179,7 @@ fun DisplayDeleteVersion(
 fun PostNameAndDate(
     text: String,
     edit: Boolean,
-    date: String = AppPreferences.dates,
+    date: String,
     transfer: (String) -> Unit,
 ) {
     var dates by remember { mutableStateOf(date) }
