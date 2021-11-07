@@ -23,6 +23,7 @@ import com.example.freelance_app.data.dto.Applicant
 import com.example.freelance_app.data.dto.Rating
 import com.example.freelance_app.data.mock.applicant
 import com.example.freelance_app.ui.theme.*
+import com.example.freelance_app.view.navigation.Screen
 import com.example.freelance_app.view.reusables.Avatar
 import com.example.freelance_app.view.reusables.EditableRatingBox
 import com.example.freelance_app.view.reusables.InputField
@@ -270,7 +271,7 @@ fun UserDetailsForCompanyScreenTopBar(
             ) {
                 if (navController != null) {
                     IconButton(
-                        onClick = { navController.popBackStack() },
+                        onClick = { navController.navigate(Screen.WelcomeScreen.route) },
                         modifier = Modifier
                             .padding(5.dp)
                             .size(45.dp)
