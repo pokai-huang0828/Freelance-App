@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                      Navigation()
 //                    UserDetailsForCompanyScreen()
-
+//                        CompanyApplicationsScreen()
 //                    UserDetailsScreen()
 //                    UserPostsScreen()
 //                    UserHistoryScreen()

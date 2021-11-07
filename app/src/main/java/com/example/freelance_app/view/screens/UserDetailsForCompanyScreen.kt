@@ -30,8 +30,8 @@ import com.example.freelance_app.view.reusables.RatingBox
 
 @ExperimentalAnimationApi
 @Composable
-//fun UserDetailsForCompanyScreen(navController: NavController) {
-fun UserDetailsForCompanyScreen() {
+fun UserDetailsForCompanyScreen(navController: NavController) {
+//fun UserDetailsForCompanyScreen() {
     Scaffold(
         topBar = { UserDetailsForCompanyScreenTopBar() },
         content = {
@@ -268,37 +268,35 @@ fun UserDetailsForCompanyScreenTopBar(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-//                if (navController != null) {
-                IconButton(
-//                        onClick = { navController.popBackStack() },
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .size(45.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Logout,
-                        contentDescription = "Logout",
-                        tint = White,
+                if (navController != null) {
+                    IconButton(
+                        onClick = { navController.popBackStack() },
                         modifier = Modifier
-                            .size(30.dp)
-                    )
-                }
-                IconButton(
-//                        onClick = { navController.popBackStack() },
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .size(45.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBackIos,
-                        contentDescription = "Back",
-                        tint = White,
+                            .padding(5.dp)
+                            .size(45.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Logout,
+                            contentDescription = "Logout",
+                            tint = White,
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+                    }
+                    IconButton(
+                        onClick = { navController.popBackStack() },
                         modifier = Modifier
-                            .size(30.dp)
-                    )
-//                    }
+                            .padding(5.dp)
+                            .size(45.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBackIos,
+                            contentDescription = "Back",
+                            tint = White,
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+                    }
                 }
             }
         }
