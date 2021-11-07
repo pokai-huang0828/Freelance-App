@@ -145,6 +145,8 @@ fun JobPosts(displayPosts: List<Job>) {
 
 @Composable
 fun JobPost(job: Job) {
+    var enableApplyButton by remember { mutableStateOf(true) }
+
     Card(
         border = BorderStroke(1.dp, Color.LightGray),
         elevation = 1.dp,
@@ -180,7 +182,11 @@ fun JobPost(job: Job) {
                     textAlign = TextAlign.Start
                 )
 
-                CustomButton(onClick = {}) {
+                CustomButton(
+                    enabled = enableApplyButton,
+                    onClick = {
+                        enableApplyButton = !enableApplyButton
+                }) {
                     Text(text = "Apply")
                 }
             }
